@@ -1,6 +1,6 @@
 package stickman.model;
 
-public interface Entity {
+public abstract class Entity {
 
     /**
      * Tells the view the image path for the entity at the current
@@ -8,14 +8,14 @@ public interface Entity {
      * simple gif-like animation)
      * @return The path of the image where resources/ is the relative root ("example.png")
      */
-    String getImagePath();
+    public abstract String getImagePath();
 
     /**
      * Tells the view what the x position of the entity currently is.
      * @return The x position using the top left hand corner as 0,0 and
      * increasing as the position moves right.
      */
-    double getXPos();
+    public abstract double getXPos();
 
     /**
      * Tells the view what the y position of the entity currently is.
@@ -23,27 +23,27 @@ public interface Entity {
      * increasing as the position moves DOWN (JavaFX does not use the
      * standard mathematics axes with the origin in the bottom left).
      */
-    double getYPos();
+    public abstract double getYPos();
 
     /**
      * Tells the view how tall to draw the given entity (can change over time)
      * @return The height in co-ordinate space (effectively number of pixels).
      */
-    double getHeight();
+    public abstract double getHeight();
 
     /**
      * Tells the view how wide to draw the given entity (can change over time)
      * @return The width in co-ordinate space (effectively number of pixels).
      */
-    double getWidth();
+    public abstract double getWidth();
 
     /**
      * Tells the view what Z-order to draw the entity on - to the back, or to the front.
      * @return The layer to draw the entity on
      */
-    Layer getLayer();
+    public abstract Layer getLayer();
 
-    enum Layer{
+    public enum Layer{
         BACKGROUND, FOREGROUND, EFFECT
     }
 }

@@ -5,7 +5,7 @@ package stickman.model;
  * Represents an Entity in a level.
  * There can only be one player.
  */
-public class Player implements Entity {
+public class Player extends Entity {
     private String imagePath = "ch_stand1.png";
     private String[] imageGoingRight = {"ch_walk1.png","ch_walk2.png","ch_walk3.png","ch_walk4.png"};
     private String[] imageGoingLeft = {"ch_walk5.png","ch_walk6.png","ch_walk7.png","ch_walk8.png"};
