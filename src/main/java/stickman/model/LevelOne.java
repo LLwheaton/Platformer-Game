@@ -80,6 +80,9 @@ public class LevelOne implements Level {
         } else if (player.isMovingLeft()){
             double x = getHeroX();
             player.setXPos(x - player.getVelocity());
+            if(player.getXPos() <= 0){ //Handles left border
+                player.setXPos(0);
+            }
         //If player stops moving, set X position to players current X location
         } else if(player.isStopped()){
             player.setXPos(getHeroX());
