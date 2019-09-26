@@ -6,7 +6,15 @@ package stickman.model;
  * There can only be one player.
  */
 public class Player implements Entity {
-    public String imagePath;
+    private String imagePath = "ch_stand1.png";
+    private String[] imageGoingRight = {"ch_walk1.png","ch_walk2.png","ch_walk3.png","ch_walk4.png"};
+    private String[] imageGoingLeft = {"ch_walk5.png","ch_walk6.png","ch_walk7.png","ch_walk8.png"};
+    private String[] imageStandFromRight = {"ch_stand1.png","ch_stand2.png","ch_stand3.png"};
+    private String[] imageStandFromLeft = {"ch_stand4.png","ch_stand5.png","ch_stand6.png"};
+    private int index = 0;
+    //boolean flag = true;
+    private boolean isFacingRight = true;
+
     private double XPos;
     private double YPos;
     private double height;
@@ -21,15 +29,13 @@ public class Player implements Entity {
 
     /**
      * Creates a new player and sets booleans for movement
-     * @param imagePath The image of the player to be used.
      * @param xpos The starting X position of the player in the Game Window.
      * @param ypos The starting Y position of the player in the Game Window.
      * @param height The height of the player in pixels.
      * @param width The width of the player in pixels.
      * @param velocity The speed the player will move.
      */
-    public Player(String imagePath, double xpos, double ypos, double height, double width, double velocity){
-        this.imagePath = imagePath;
+    public Player(double xpos, double ypos, double height, double width, double velocity){
         this.XPos = xpos;
         this.YPos = ypos;
         this.height = height;
@@ -43,7 +49,31 @@ public class Player implements Entity {
 
     @Override
     public String getImagePath() { //needs to change based on walking direction
-        return  this.imagePath;
+        //return  this.imagePath;
+        if(index == 4){
+            index = 0;
+        }
+        if(isJumping && isMovingRight){
+            isFacingRight = true;
+            return "ch_walk2.png";
+        }
+        if(isJumping && isMovingLeft){
+            isFacingRight = false;
+            return "ch_walk6.png";
+        }
+        if(isMovingRight){
+            isFacingRight = true;
+            return imageGoingRight[index++];
+        }
+        if(isMovingLeft){
+            isFacingRight = false;
+            return imageGoingLeft[index++];
+        }
+        if(isFacingRight){
+            return "ch_stand1.png";
+        } else {
+            return "ch_stand4.png";
+        }
     }
 
     @Override

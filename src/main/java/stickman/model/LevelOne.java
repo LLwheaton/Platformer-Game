@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class LevelOne implements Level {
     private double height;
     private double width;
-    private Player player = new Player("ch_stand1.png", 20, 350, 75, 15, 1.0);
+    private Player player = new Player( 20, 350, 75, 15, 1.0);
     private Cloud cloud1 = new Cloud("cloud_2.png", 150.0, 150.0, 50.0, 80.0, 1);
     private Cloud cloud2 = new Cloud("cloud_2.png", 500.0, 50.0, 50.0, 80.0, 1);
     private boolean onGround = true;
