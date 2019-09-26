@@ -15,6 +15,7 @@ public class LevelOne implements Level {
     private Player player = new Player( 20, 350, 75, 15, 1.0);
     private Cloud cloud1 = new Cloud("cloud_2.png", 150.0, 150.0, 50.0, 80.0, 1);
     private Cloud cloud2 = new Cloud("cloud_2.png", 500.0, 50.0, 50.0, 80.0, 1);
+    private Slime slime = new Slime(200, height + 330, 30, 30);
     private boolean onGround = true;
     private final double MAXJUMPHEIGHT = 100;
     private boolean reachedTop = false;
@@ -49,6 +50,7 @@ public class LevelOne implements Level {
         entities.add(this.player);
         entities.add(this.cloud1);
         entities.add(this.cloud2);
+        entities.add(this.slime);
         return entities;
     }
 
