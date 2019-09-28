@@ -94,7 +94,7 @@ public class LevelOne implements Level {
             if(player.getXPos() <= 0){ //Handles left border
                 player.setXPos(0);
             }
-        //If player stops moving, set X position to players current X location
+        //If player stops moving, set X position to players current X location/
         } else if(player.isStopped()){
             player.setXPos(getHeroX());
         }
