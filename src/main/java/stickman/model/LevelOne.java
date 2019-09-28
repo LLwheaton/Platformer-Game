@@ -16,9 +16,12 @@ public class LevelOne implements Level {
     private Cloud cloud1 = new Cloud("cloud_2.png", 150.0, 150.0, 50.0, 80.0, 1);
     private Cloud cloud2 = new Cloud("cloud_2.png", 500.0, 50.0, 50.0, 80.0, 1);
     private Slime slime = new Slime(200, height + 330, 30, 30);
+    private Platform platform = new Platform(250, height+270, 70, 70);
     private boolean onGround = true;
     private final double MAXJUMPHEIGHT = 100;
     private boolean reachedTop = false;
+
+    private double gravity = 34;
 
     /**
      * Creates the level and sets player and cloud parameters.
@@ -51,6 +54,7 @@ public class LevelOne implements Level {
         entities.add(this.cloud1);
         entities.add(this.cloud2);
         entities.add(this.slime);
+        entities.add(this.platform);
         return entities;
     }
 
@@ -71,7 +75,7 @@ public class LevelOne implements Level {
     @Override
     public void tick() {
 
-        cloud1.setXPos(cloud1.getXPos() - (cloud1.getCloudVelocity()*0.017));
+        cloud1.setXPos(cloud1.getXPos() - (cloud1.getCloudVelocity()/60));
         cloud2.setXPos(cloud2.getXPos() - (cloud2.getCloudVelocity()*0.017));
 
         //If player moves right, set X position to increment by players velocity
@@ -92,12 +96,15 @@ public class LevelOne implements Level {
         //If player jumps or is not already on the ground
         //Set isJumping to true
         if(player.isJumping() || !onGround){
+            System.out.println("y = " + player.getYPos() + " gravity: " + gravity);
             double ypos = player.getYPos();
             player.setIsJumping(true);
             //Checks if player position is between ground and max jump height
             if(ypos > (getFloorHeight() - (player.getHeight()*0.45) - MAXJUMPHEIGHT) && !reachedTop){
                 onGround = false;
-                ypos -= 1;
+                ypos -=1 ;
+                //ypos -= (3*(gravity/34));
+                //gravity -= 1;
                 player.setYPos(ypos);
             //Player has reached max jump height and can come back down
             } else {
@@ -107,7 +114,9 @@ public class LevelOne implements Level {
             if(reachedTop){
                 //Checks if player is between max jump height and ground
                 if(ypos < getFloorHeight()- (player.getHeight()*0.45)){
-                    ypos = ypos + 1;
+                    ypos += 1;
+                    //ypos += (3*(gravity/34));
+                    //gravity += 1;
                     player.setYPos(ypos);
                 //Player has landed on the ground
                 //Set isJumping to false
