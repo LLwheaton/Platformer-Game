@@ -22,6 +22,9 @@ public class LevelOne implements Level {
     private boolean reachedTop = false;
 
     private double gravity = 34;
+    private double floorheight;
+    private double jumpStrength = 5;
+    private double weight = 0.1;
 
     /**
      * Creates the level and sets player and cloud parameters.
@@ -38,7 +41,8 @@ public class LevelOne implements Level {
         this.player.setHeight(playerHeight);
         this.player.setXPos(XPos);
         this.player.setWidth(playerWidth);
-        this.player.setYPos(height - 30 - (playerHeight*0.45));
+        //this.player.setYPos(height - 30 - (playerHeight*0.45));
+        this.player.setYPos(height - 64); //added
         this.cloud1.setCloudVelocity(cloudVelocity);
         this.cloud2.setCloudVelocity(cloudVelocity);
     }
@@ -74,9 +78,10 @@ public class LevelOne implements Level {
      */
     @Override
     public void tick() {
-
+        floorheight = height - 64; //added
+        double y = player.getYPos(); //added
         cloud1.setXPos(cloud1.getXPos() - (cloud1.getCloudVelocity()/60));
-        cloud2.setXPos(cloud2.getXPos() - (cloud2.getCloudVelocity()*0.017));
+        cloud2.setXPos(cloud2.getXPos() - (cloud2.getCloudVelocity()/60));
 
         //If player moves right, set X position to increment by players velocity
         if(player.isMovingRight()){
@@ -93,41 +98,29 @@ public class LevelOne implements Level {
         } else if(player.isStopped()){
             player.setXPos(getHeroX());
         }
-        //If player jumps or is not already on the ground
-        //Set isJumping to true
+
+        //jumping
+        /*The following code was created with help from a tutorial on this site:
+        * https://www.instructables.com/id/2D-Jumping-Tutorial-in-Java/
+        * Accessed: 29/09/2019
+         */
         if(player.isJumping() || !onGround){
-            System.out.println("y = " + player.getYPos() + " gravity: " + gravity);
-            double ypos = player.getYPos();
             player.setIsJumping(true);
-            //Checks if player position is between ground and max jump height
-            if(ypos > (getFloorHeight() - (player.getHeight()*0.45) - MAXJUMPHEIGHT) && !reachedTop){
+            y -= jumpStrength;
+            jumpStrength -= weight;
+            player.setYPos(y);
+
+            if(y <= floorheight){
                 onGround = false;
-                ypos -=1 ;
-                //ypos -= (3*(gravity/34));
-                //gravity -= 1;
-                player.setYPos(ypos);
-            //Player has reached max jump height and can come back down
             } else {
-                reachedTop = true;
-            }
-            //Player will begin to come back down
-            if(reachedTop){
-                //Checks if player is between max jump height and ground
-                if(ypos < getFloorHeight()- (player.getHeight()*0.45)){
-                    ypos += 1;
-                    //ypos += (3*(gravity/34));
-                    //gravity += 1;
-                    player.setYPos(ypos);
-                //Player has landed on the ground
-                //Set isJumping to false
-                } else {
-                    player.setYPos(getFloorHeight()-(player.getHeight()*0.45));
-                    reachedTop = false;
-                    onGround = true;
-                    player.setIsJumping(false);
-                }
+                onGround = true;
+                y = floorheight;
+                player.setYPos(y);
+                player.setIsJumping(false);
+                jumpStrength = 5;
             }
         }
+        /*END */
     }
 
     @Override
