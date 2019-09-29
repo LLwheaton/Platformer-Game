@@ -5,7 +5,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import stickman.model.Entity;
+import stickman.model.IEntity;
 import stickman.model.GameEngine;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class GameWindow {
     private void draw() {
         model.tick();
 
-        List<Entity> entities = model.getCurrentLevel().getEntities();
+        List<IEntity> entities = model.getCurrentLevel().getEntities();
 
         for (EntityView entityView: entityViews) {
             entityView.markForDelete();
@@ -79,7 +79,7 @@ public class GameWindow {
 
         backgroundDrawer.update(xViewportOffset);
 
-        for (Entity entity: entities) {
+        for (IEntity entity: entities) {
             boolean notFound = true;
             for (EntityView view: entityViews) {
                 if (view.matchesEntity(entity)) {

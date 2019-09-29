@@ -1,6 +1,6 @@
 package stickman.model;
 
-public class Slime extends Entity{
+public class Slime implements IEntity{
     private String[] imagePath = {"slimeBa.png","slimeBb.png"};
     private int index = 0;
     private double XPos;

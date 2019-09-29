@@ -1,12 +1,12 @@
 package stickman.view;
 
 import javafx.scene.Node;
-import stickman.model.Entity;
+import stickman.model.IEntity;
 
 public interface EntityView {
     void update(double xViewportOffset);
 
-    boolean matchesEntity(Entity entity);
+    boolean matchesEntity(IEntity entity);
 
     void markForDelete();
 

@@ -52,8 +52,8 @@ public class LevelOne implements Level {
      * @return The list with all created entities.
      */
     @Override
-    public List<Entity> getEntities() {
-        List<Entity> entities = new ArrayList<>();
+    public List<IEntity> getEntities() {
+        List<IEntity> entities = new ArrayList<>();
         entities.add(this.player);
         entities.add(this.cloud1);
         entities.add(this.cloud2);

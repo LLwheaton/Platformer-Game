@@ -5,7 +5,7 @@ package stickman.model;
  * Creates a cloud in the level.
  * There can be multiple clouds.
  */
-public class Cloud extends Entity {
+public class Cloud implements IEntity {
     private String imagePath;
     private double XPos;
     private double YPos;

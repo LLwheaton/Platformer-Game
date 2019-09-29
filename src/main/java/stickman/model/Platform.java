@@ -1,6 +1,6 @@
 package stickman.model;
 
-public class Platform extends Entity {
+public class Platform implements IEntity {
     private String imagePath = "platform.png";
     private double xpos;
     private double ypos;
