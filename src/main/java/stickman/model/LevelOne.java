@@ -15,7 +15,7 @@ public class LevelOne implements Level {
     private Player player = new Player( 20, 350, 75, 15, 1.0);
     private Cloud cloud1 = new Cloud("cloud_2.png", 150.0, 150.0, 50.0, 80.0, 1);
     private Cloud cloud2 = new Cloud("cloud_2.png", 500.0, 50.0, 50.0, 80.0, 1);
-    private Slime slime = new Slime(200, height + 330, 30, 30);
+    //private Slime slime = new Slime(200, height + 330, 30, 30);
     private Platform platform = new Platform(250, height+270, 70, 70);
     private boolean onGround = true;
     private final double MAXJUMPHEIGHT = 100;
@@ -57,7 +57,7 @@ public class LevelOne implements Level {
         entities.add(this.player);
         entities.add(this.cloud1);
         entities.add(this.cloud2);
-        entities.add(this.slime);
+        //entities.add(this.slime);
         entities.add(this.platform);
         return entities;
     }
@@ -135,55 +135,23 @@ public class LevelOne implements Level {
 
     @Override
     public boolean jump() {
-
-        if(player.isJumping()){
-            return false;
-        }
-        player.setIsJumping(true);
-        return true;
+        return player.jump();
     }
 
     @Override
     public boolean moveLeft() {
-
-        if(player.isMovingLeft()){
-            return false;
-        }
-        player.setIsMovingRight(false);
-        player.setIsStopped(false);
-        player.setIsMovingLeft(true);
-        return true;
+        return player.moveLeft();
     }
     /*This can only happen if they are not currently moving right (but mid-jump is ok)*/
     @Override
     public boolean moveRight() {
-
-        if(player.isMovingRight()){
-            return false;
-        }
-        player.setIsMovingLeft(false);
-        player.setIsStopped(false);
-        player.setIsMovingRight(true);
-        return true;
+        return player.moveRight();
     }
     /* Tells the hero to stop moving left or right.
      * This can only happen if they are currently moving - mid-jump is ok.
      * This should not effect the jump itself.*/
     @Override
     public boolean stopMoving() {
-        if(player.isStopped()){
-            return false;
-        }
-        if(!player.isStopped()){
-            if(player.isMovingRight()){
-                player.setIsMovingRight(false);
-                player.setIsStopped(true);
-            } else { //player is moving left
-                player.setIsMovingLeft(false);
-                player.setIsStopped(true);
-            }
-            return true;
-        }
-        return false;
+        return player.stopMoving();
     }
 }

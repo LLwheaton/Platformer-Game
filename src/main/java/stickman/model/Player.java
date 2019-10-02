@@ -5,7 +5,7 @@ package stickman.model;
  * Represents an Entity in a level.
  * There can only be one player.
  */
-public class Player implements IEntity {
+public class Player implements IEntity, IControllable {
     private String imagePath = "ch_stand1.png";
     private String[] imageGoingRight = {"ch_walk1.png","ch_walk2.png","ch_walk3.png","ch_walk4.png"};
     private String[] imageGoingLeft = {"ch_walk5.png","ch_walk6.png","ch_walk7.png","ch_walk8.png"};
@@ -215,4 +215,57 @@ public class Player implements IEntity {
         this.isStopped = isStopped;
     }
 
+    @Override
+    public boolean jump() {
+
+        if(isJumping){
+            return false;
+        }
+        isJumping = true;
+        return true;
+    }
+
+    @Override
+    public boolean moveLeft() {
+
+        if(isMovingLeft){
+            return false;
+        }
+        isMovingRight = false;
+        isStopped = false;
+        isMovingLeft = true;
+        return true;
+    }
+    /*This can only happen if they are not currently moving right (but mid-jump is ok)*/
+    @Override
+    public boolean moveRight() {
+
+        if(isMovingRight){
+            return false;
+        }
+        isMovingLeft = false;
+        isStopped = false;
+        isMovingRight = true;
+        return true;
+    }
+    /* Tells the hero to stop moving left or right.
+     * This can only happen if they are currently moving - mid-jump is ok.
+     * This should not effect the jump itself.*/
+    @Override
+    public boolean stopMoving() {
+        if(isStopped){
+            return false;
+        }
+        if(!isStopped){
+            if(isMovingRight){
+                isMovingRight = false;
+                isStopped = true;
+            } else { //player is moving left
+                isMovingLeft = false;
+                isStopped = true;
+            }
+            return true;
+        }
+        return false;
+    }
 }
