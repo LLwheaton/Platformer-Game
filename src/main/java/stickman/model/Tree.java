@@ -1,15 +1,13 @@
 package stickman.model;
 
-public class Platform implements IEntity {
-    private String imagePath;
+public class Tree implements IEntity{
     private double xpos;
     private double ypos;
     private double height;
     private double width;
     private Layer layer = Layer.BACKGROUND;
 
-    public Platform(String imagePath, double xpos, double ypos, double height, double width){
-        this.imagePath = imagePath;
+    public Tree(double xpos, double ypos, double height, double width){
         this.xpos = xpos;
         this.ypos = ypos;
         this.height = height;
@@ -18,7 +16,7 @@ public class Platform implements IEntity {
 
     @Override
     public String getImagePath() {
-        return this.imagePath;
+        return "tree2.png";
     }
 
     @Override
@@ -47,21 +45,17 @@ public class Platform implements IEntity {
     }
 
     @Override
-    public void update(){
-
-    }
-    @Override
-    public void handleCollision(IEntity entity){
+    public void update() {
 
     }
 
     @Override
-    public void dies(){
+    public void dies() {
 
     }
 
     @Override
-    public String toString(){
-        return "platform";
+    public void handleCollision(IEntity entity) {
+
     }
 }

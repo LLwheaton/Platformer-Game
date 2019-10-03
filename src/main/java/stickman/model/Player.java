@@ -7,8 +7,8 @@ package stickman.model;
  */
 public class Player implements IEntity, IControllable {
     private String imagePath = "ch_stand1.png";
-    private String[] imageGoingRight = {"ch_walk1.png","ch_walk2.png","ch_walk3.png","ch_walk4.png"};
-    private String[] imageGoingLeft = {"ch_walk5.png","ch_walk6.png","ch_walk7.png","ch_walk8.png"};
+    private String[] imageGoingRight = {"ch_walk1.png","ch_walk2.png","ch_walk3.png","ch_walk4.png", "ch_walk3.png","ch_walk2.png"};
+    private String[] imageGoingLeft = {"ch_walk5.png","ch_walk6.png","ch_walk7.png","ch_walk8.png","ch_walk7.png"};
     private String[] imageStandFromRight = {"ch_stand1.png","ch_stand2.png","ch_stand3.png"};
     private String[] imageStandFromLeft = {"ch_stand4.png","ch_stand5.png","ch_stand6.png"};
     private int index = 0;
@@ -43,7 +43,7 @@ public class Player implements IEntity, IControllable {
         determineSize(stickmanSize);
         this.startXPos = xpos;
         this.XPos = xpos;
-        this.YPos = ypos - playerHeight*.4;
+        this.YPos = ypos - playerHeight*.45;
         this.velocity = 1;
         this.isMovingLeft = false;
         this.isMovingRight = false;
@@ -75,9 +75,10 @@ public class Player implements IEntity, IControllable {
 
     @Override
     public String getImagePath() { //needs to change based on walking direction
-        if(index == 4){
+        if(index == 16){
             index = 0;
         }
+        int n = index / 4;
         if(isJumping && isMovingRight){
             isFacingRight = true;
             return "ch_walk2.png";
@@ -88,11 +89,13 @@ public class Player implements IEntity, IControllable {
         }
         if(isMovingRight){
             isFacingRight = true;
-            return imageGoingRight[index++];
+            index++;
+            return imageGoingRight[n++];
         }
         if(isMovingLeft){
             isFacingRight = false;
-            return imageGoingLeft[index++];
+            index++;
+            return imageGoingLeft[n++];
         }
         if(isFacingRight){
             return "ch_stand1.png";
@@ -146,6 +149,10 @@ public class Player implements IEntity, IControllable {
      */
     public void setHeight(double playerHeight){
         this.playerHeight = playerHeight;
+    }
+
+    public void setJumpStrength(double jumpStrength){
+        this.jumpStrength = jumpStrength;
     }
 
     /**
@@ -270,12 +277,12 @@ public class Player implements IEntity, IControllable {
             System.out.println("jumpstrength: " + jumpStrength);
             setYPos(y);
 
-            if(y <= floorheight - playerHeight*.4){
+            if(y <= floorheight - playerHeight*.45){
                 onGround = false;
             } else {
                 onGround = true;
                 onPlatform = false;
-                y = floorheight - playerHeight*.4;
+                y = floorheight - playerHeight*.45;
                 setYPos(y);
                 isJumping = false;
                 jumpStrength = 5;
@@ -288,6 +295,11 @@ public class Player implements IEntity, IControllable {
         this.YPos = entity.getYPos() - playerHeight*.4;
         isJumping = false; //only allows jump sound
         onPlatform = true;
+    }
+
+    @Override
+    public void dies(){
+
     }
 
     @Override

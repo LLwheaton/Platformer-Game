@@ -97,4 +97,9 @@ public class Cloud implements IEntity {
     public void handleCollision(IEntity entity){
 
     }
+
+    @Override
+    public void dies(){
+
+    }
 }

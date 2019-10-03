@@ -55,13 +55,19 @@ public class GameConfig {
         Player player = new Player(this.startXPos, floorHeight, this.stickmanSize);
         Cloud cloud1 = new Cloud("cloud_2.png", 150.0, 150.0, 50.0, 80.0, cloudVelocity);
         Cloud cloud2 = new Cloud("cloud_2.png", 500.0, 50.0, 50.0, 80.0, cloudVelocity);
-        Platform platform = new Platform(250, floorHeight-100, 70, 70);
-        Slime slime = new Slime(200, floorHeight-10, 30, 30);
+        Platform platform = new Platform("platform.png",250, floorHeight-100, 70, 70);
+        Platform platform2 = new Platform("platform2.png", 700, floorHeight - 80, 40,40);
+        Slime slime = new Slime(900, floorHeight-12, 30, 30);
+        Tree tree = new Tree(500, floorHeight-90, 100,100);
+        //Bat bat = new Bat(200, floorHeight - 30, 30,30);
         this.entities.add(player);
         this.entities.add(cloud1);
         this.entities.add(cloud2);
         this.entities.add(platform);
+        this.entities.add(platform2);
         this.entities.add(slime);
+        this.entities.add(tree);
+        //this.entities.add(bat);
         createLevel(player);
     }
     private void createLevel(Player player){

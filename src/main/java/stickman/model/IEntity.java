@@ -45,6 +45,8 @@ public interface IEntity {
 
     void update();
 
+    void dies();
+
     void handleCollision(IEntity entity);
 
     enum Layer{

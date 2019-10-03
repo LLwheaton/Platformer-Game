@@ -1,6 +1,8 @@
 package stickman;
 
 import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import stickman.model.GameEngine;
 import stickman.model.GameEngineImpl;
