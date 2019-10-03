@@ -1,7 +1,7 @@
 package stickman.model;
 
 public class Slime implements IEntity{
-    private String[] imagePath = {"slimeBa.png","slimeBb.png"};
+    private String[] imagePath = {"slimeBa.png", "slimeBb.png"};
     private int index = 0;
     private double XPos;
     private double YPos;
@@ -10,6 +10,7 @@ public class Slime implements IEntity{
     private Layer layer = Layer.FOREGROUND;
 
     public Slime(double xpos, double ypos, double height, double width){
+        //this.imagePath = imagePath;
         this.XPos = xpos;
         this.YPos = ypos;
         this.height = height;
@@ -18,10 +19,17 @@ public class Slime implements IEntity{
 
     @Override
     public String getImagePath() {
-        if(index == 2){
+//        if(index == 2){
+//            index = 0;
+//        }
+//        return imagePath[index++];
+        if(index == 0){
+            index = 1;
+            return imagePath[0];
+        } else {
             index = 0;
+            return imagePath[1];
         }
-        return imagePath[index++];
     }
 
     @Override
@@ -47,5 +55,10 @@ public class Slime implements IEntity{
     @Override
     public Layer getLayer() {
         return this.layer;
+    }
+
+    @Override
+    public void update(){
+
     }
 }

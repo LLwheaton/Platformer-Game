@@ -228,6 +228,7 @@ public class Player implements IEntity, IControllable {
 
     @Override //gets called in tick
     public void update(){
+        System.out.println("Ypos: " + this.YPos);
         double y = this.YPos;
         //If player moves right, set X position to increment by players velocity
         if(isMovingRight){

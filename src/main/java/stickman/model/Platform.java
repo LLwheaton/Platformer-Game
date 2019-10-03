@@ -44,4 +44,9 @@ public class Platform implements IEntity {
     public Layer getLayer() {
         return this.layer;
     }
+
+    @Override
+    public void update(){
+
+    }
 }
