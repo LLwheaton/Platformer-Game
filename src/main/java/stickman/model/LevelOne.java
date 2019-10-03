@@ -1,5 +1,7 @@
 package stickman.model;
 
+import javafx.scene.text.Text;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -27,6 +29,10 @@ public class LevelOne implements Level {
         this.height = height;
         this.entities = entities;
         this.player = player;
+        Text text = new Text();
+        text.setText("Lives: ");
+        text.setX(5);
+        text.setY(20);
     }
 
     /**
@@ -62,9 +68,11 @@ public class LevelOne implements Level {
                 if(checkIntersect(player, entity)){
                     if(player.getJumpStrength() < 0){
                         this.entities.remove(entity);
+                        //entity.dies();
                         break;
                     } else { //use handle collision?
                         player.setXPos(player.getStartXPos());
+                        //player.setJumpStrength(5);
                     }
                     //entity.handleCollision();
                     //this.entities.remove(entity);
@@ -92,8 +100,8 @@ public class LevelOne implements Level {
         double bheight = b.getHeight();
         return (ax < (bx + bwidth)) &&
                 ((ax + awidth) > bx) &&
-                (ay - a.getHeight()*.4 < (by + bheight)) &&
-                ((ay - a.getHeight()*.4 + aheight) > by);
+                (ay - a.getHeight()*.45 < (by + bheight)) &&
+                ((ay - a.getHeight()*.45 + aheight) > by);
     }
 
     public boolean checkTopIntersect(IEntity a, IEntity b){

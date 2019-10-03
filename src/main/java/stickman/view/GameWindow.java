@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import stickman.model.IEntity;
 import stickman.model.GameEngine;
@@ -57,6 +58,12 @@ public class GameWindow {
     private void draw() {
         model.tick();
 
+        Text text = new Text();
+        text.setText("Lives: 3");
+        text.setX(5);
+        text.setY(20);
+        pane.getChildren().add(text);
+
         List<IEntity> entities = model.getCurrentLevel().getEntities();
 
         for (EntityView entityView: entityViews) {
@@ -102,4 +109,5 @@ public class GameWindow {
         }
         entityViews.removeIf(EntityView::isMarkedForDelete);
     }
+
 }

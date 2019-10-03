@@ -8,6 +8,9 @@ public class Slime implements IEntity{
     private double height;
     private double width;
     private Layer layer = Layer.FOREGROUND;
+    private boolean isDead = false;
+
+    private int range = 30;
 
     public Slime(double xpos, double ypos, double height, double width){
         //this.imagePath = imagePath;
@@ -19,17 +22,19 @@ public class Slime implements IEntity{
 
     @Override
     public String getImagePath() {
-//        if(index == 2){
-//            index = 0;
-//        }
-//        return imagePath[index++];
-        if(index == 0){
-            index = 1;
-            return imagePath[0];
-        } else {
+        if(index == 14){
             index = 0;
-            return imagePath[1];
         }
+        int n = index / 7;
+        index++;
+        return imagePath[n++];
+//        if(index == 0){
+//            index = 1;
+//            return imagePath[0];
+//        } else {
+//            index = 0;
+//            return imagePath[1];
+//        }
     }
 
     @Override
@@ -60,11 +65,16 @@ public class Slime implements IEntity{
     @Override
     public void update(){
         //System.out.println("slime xpos: " + this.XPos);
-        if(this.XPos < 0){
-            this.XPos = 680;
-        }
+//        if(this.XPos < 0){
+//            this.XPos = 680;
+//        }
         this.XPos -= 1;
 
+
+
+    }
+    public void dies(){
+        isDead = true;
     }
 
     @Override
