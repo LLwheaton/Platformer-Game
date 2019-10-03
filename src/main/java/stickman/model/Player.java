@@ -13,6 +13,7 @@ public class Player implements IEntity, IControllable {
     private String[] imageStandFromLeft = {"ch_stand4.png","ch_stand5.png","ch_stand6.png"};
     private int index = 0;
 
+    private double startXPos;
     private double XPos;
     private double YPos;
     private double playerHeight;
@@ -27,9 +28,10 @@ public class Player implements IEntity, IControllable {
     private boolean isFacingRight = true;
 
     private boolean onGround = true;
-    private double floorheight = 380 - 30;
+    private double floorheight = 350;
     private double jumpStrength = 5;
     private double weight = 0.1;
+    private boolean onPlatform = false;
 
     /**
      * Creates a new player and sets booleans for movement
@@ -38,14 +40,16 @@ public class Player implements IEntity, IControllable {
      * @param stickmanSize The size of stickman as a string.
      */
     public Player(double xpos, double ypos, String stickmanSize){
+        determineSize(stickmanSize);
+        this.startXPos = xpos;
         this.XPos = xpos;
-        this.YPos = ypos;
+        this.YPos = ypos - playerHeight*.4;
         this.velocity = 1;
         this.isMovingLeft = false;
         this.isMovingRight = false;
         this.isJumping = false;
         this.isStopped = true;
-        determineSize(stickmanSize);
+
     }
 
     private void determineSize(String size){
@@ -102,6 +106,8 @@ public class Player implements IEntity, IControllable {
         return this.XPos;
     }
 
+    public double getStartXPos(){return this.startXPos;}
+
     @Override
     public double getYPos() {
         return this.YPos;
@@ -128,6 +134,10 @@ public class Player implements IEntity, IControllable {
      */
     public double getVelocity(){
         return this.velocity;
+    }
+
+    public double getJumpStrength(){
+        return this.jumpStrength;
     }
 
     /**
@@ -228,7 +238,7 @@ public class Player implements IEntity, IControllable {
 
     @Override //gets called in tick
     public void update(){
-        System.out.println("Ypos: " + this.YPos);
+        //System.out.println("Ypos: " + this.YPos);
         double y = this.YPos;
         //If player moves right, set X position to increment by players velocity
         if(isMovingRight){
@@ -253,22 +263,35 @@ public class Player implements IEntity, IControllable {
          * https://www.instructables.com/id/2D-Jumping-Tutorial-in-Java/
          * Accessed: 29/09/2019
          */
-        if(isJumping || !onGround){
+        if(isJumping || !onGround || onPlatform){
             isJumping = true;
             y -= jumpStrength;
             jumpStrength -= weight;
+            System.out.println("jumpstrength: " + jumpStrength);
             setYPos(y);
 
-            if(y <= floorheight){
+            if(y <= floorheight - playerHeight*.4){
                 onGround = false;
             } else {
                 onGround = true;
-                y = floorheight;
+                onPlatform = false;
+                y = floorheight - playerHeight*.4;
                 setYPos(y);
                 isJumping = false;
                 jumpStrength = 5;
             }
         }
         /*END */
+    }
+    @Override
+    public void handleCollision(IEntity entity){
+        this.YPos = entity.getYPos() - playerHeight*.4;
+        isJumping = false; //only allows jump sound
+        onPlatform = true;
+    }
+
+    @Override
+    public String toString(){
+        return "player";
     }
 }

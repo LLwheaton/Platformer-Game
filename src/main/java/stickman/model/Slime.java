@@ -12,7 +12,7 @@ public class Slime implements IEntity{
     public Slime(double xpos, double ypos, double height, double width){
         //this.imagePath = imagePath;
         this.XPos = xpos;
-        this.YPos = ypos;
+        this.YPos = ypos - height*.3;
         this.height = height;
         this.width = width;
     }
@@ -59,6 +59,21 @@ public class Slime implements IEntity{
 
     @Override
     public void update(){
+        //System.out.println("slime xpos: " + this.XPos);
+        if(this.XPos < 0){
+            this.XPos = 680;
+        }
+        this.XPos -= 1;
 
+    }
+
+    @Override
+    public void handleCollision(IEntity entity){
+
+    }
+
+    @Override
+    public String toString(){
+        return "slime";
     }
 }

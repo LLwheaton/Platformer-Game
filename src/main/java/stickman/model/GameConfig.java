@@ -10,22 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameConfig {
-    //private String filename;
+
     private String stickmanSize;
     private double startXPos;
     private double cloudVelocity;
-    private int numPlatforms;
-    private int numEnemies;
+
     private List<IEntity> entities = new ArrayList<>();
     private IEntity player;
     private Level levelone;
+    private double floorHeight = 350;
 
     public GameConfig(String fileName){
-        //this.filename = filename;
-        //System.out.println("1");
+
         extract(fileName);
-        //EntityFactory entityFactory = new EntityFactory();
-        //this.entities = entityFactory.createEntities(stickmanSize, startXPos, cloudVelocity);
         createEntities();
     }
     /**
@@ -55,11 +52,11 @@ public class GameConfig {
 
     }
     private void createEntities(){
-        Player player = new Player(this.startXPos, 350, this.stickmanSize);
+        Player player = new Player(this.startXPos, floorHeight, this.stickmanSize);
         Cloud cloud1 = new Cloud("cloud_2.png", 150.0, 150.0, 50.0, 80.0, cloudVelocity);
         Cloud cloud2 = new Cloud("cloud_2.png", 500.0, 50.0, 50.0, 80.0, cloudVelocity);
-        Platform platform = new Platform(250, 280, 70, 70);
-        Slime slime = new Slime(200, 362, 30, 30);
+        Platform platform = new Platform(250, floorHeight-100, 70, 70);
+        Slime slime = new Slime(200, floorHeight-10, 30, 30);
         this.entities.add(player);
         this.entities.add(cloud1);
         this.entities.add(cloud2);

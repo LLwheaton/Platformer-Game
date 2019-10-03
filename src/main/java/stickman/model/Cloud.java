@@ -92,4 +92,9 @@ public class Cloud implements IEntity {
     public void update(){
         setXPos(getXPos() - (getCloudVelocity()/60));
     }
+
+    @Override
+    public void handleCollision(IEntity entity){
+
+    }
 }

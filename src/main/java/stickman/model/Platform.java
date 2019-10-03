@@ -49,4 +49,13 @@ public class Platform implements IEntity {
     public void update(){
 
     }
+    @Override
+    public void handleCollision(IEntity entity){
+
+    }
+
+    @Override
+    public String toString(){
+        return "platform";
+    }
 }

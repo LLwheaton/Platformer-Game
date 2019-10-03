@@ -55,8 +55,60 @@ public class LevelOne implements Level {
     @Override
     public void tick() {
         for(IEntity entity : entities){
-                   entity.update();
+            entity.update();
+
+            if(entity.toString().equals("slime")){
+                //if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
+                if(checkIntersect(player, entity)){
+                    if(player.getJumpStrength() < 0){
+                        this.entities.remove(entity);
+                        break;
+                    } else { //use handle collision?
+                        player.setXPos(player.getStartXPos());
+                    }
+                    //entity.handleCollision();
+                    //this.entities.remove(entity);
+                    break; //this actually worked? lol
+                }
+            } else if(entity.toString().equals("platform")){
+                //System.out.println("intersect?: " + checkIntersect(player, entity));
+                //System.out.println("velocity: " + player.getVelocity());
+                if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
+
+                    player.handleCollision(entity);
+                }
+            }
         }
+    }
+
+    public boolean checkIntersect(IEntity a, IEntity b){
+        double ax = a.getXPos();
+        double ay = a.getYPos();
+        double awidth = a.getWidth();
+        double aheight = a.getHeight();
+        double bx = b.getXPos();
+        double by = b.getYPos();
+        double bwidth = b.getWidth();
+        double bheight = b.getHeight();
+        return (ax < (bx + bwidth)) &&
+                ((ax + awidth) > bx) &&
+                (ay - a.getHeight()*.4 < (by + bheight)) &&
+                ((ay - a.getHeight()*.4 + aheight) > by);
+    }
+
+    public boolean checkTopIntersect(IEntity a, IEntity b){
+        double ax = a.getXPos();
+        double ay = a.getYPos();
+        double awidth = a.getWidth();
+        double aheight = a.getHeight();
+        double bx = b.getXPos();
+        double by = b.getYPos();
+        double bwidth = b.getWidth();
+        double bheight = b.getHeight();
+        return (ax < (bx + bwidth)) &&
+                ((ax + awidth) > bx) &&
+                (ay < (by + bheight)) &&
+                ((ay + aheight) > by);
     }
 
     @Override

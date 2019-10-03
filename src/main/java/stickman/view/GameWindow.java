@@ -35,9 +35,9 @@ public class GameWindow {
         scene.setOnKeyPressed(keyboardInputHandler::handlePressed);
         scene.setOnKeyReleased(keyboardInputHandler::handleReleased);
 
-        //this.backgroundDrawer = new BlockedBackground();
+        this.backgroundDrawer = new BlockedBackground();
         //this.backgroundDrawer = new ParallaxBackground();
-        this.backgroundDrawer = new MagicBackground();
+        //this.backgroundDrawer = new MagicBackground();
 
         backgroundDrawer.draw(model, pane);
     }
