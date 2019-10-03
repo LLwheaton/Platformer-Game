@@ -86,4 +86,10 @@ public class Cloud implements IEntity {
     public void setCloudVelocity(double cloudVelocity){
         this.cloudVelocity = cloudVelocity;
     }
+
+    //added
+    @Override
+    public void update(){
+        setXPos(getXPos() - (getCloudVelocity()/60));
+    }
 }

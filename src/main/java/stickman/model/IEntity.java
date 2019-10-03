@@ -43,6 +43,8 @@ public interface IEntity {
      */
     Layer getLayer();
 
+    void update();
+
     enum Layer{
         BACKGROUND, FOREGROUND, EFFECT
     }

@@ -12,13 +12,11 @@ public class Player implements IEntity, IControllable {
     private String[] imageStandFromRight = {"ch_stand1.png","ch_stand2.png","ch_stand3.png"};
     private String[] imageStandFromLeft = {"ch_stand4.png","ch_stand5.png","ch_stand6.png"};
     private int index = 0;
-    //boolean flag = true;
-    private boolean isFacingRight = true;
 
     private double XPos;
     private double YPos;
-    private double height;
-    private double width;
+    private double playerHeight;
+    private double playerWidth;
     private Layer layer = Layer.FOREGROUND;
     private double velocity;
 
@@ -26,30 +24,53 @@ public class Player implements IEntity, IControllable {
     private boolean isMovingRight;
     private boolean isJumping;
     private boolean isStopped;
+    private boolean isFacingRight = true;
+
+    private boolean onGround = true;
+    private double floorheight = 380 - 30;
+    private double jumpStrength = 5;
+    private double weight = 0.1;
 
     /**
      * Creates a new player and sets booleans for movement
      * @param xpos The starting X position of the player in the Game Window.
      * @param ypos The starting Y position of the player in the Game Window.
-     * @param height The height of the player in pixels.
-     * @param width The width of the player in pixels.
-     * @param velocity The speed the player will move.
+     * @param stickmanSize The size of stickman as a string.
      */
-    public Player(double xpos, double ypos, double height, double width, double velocity){
+    public Player(double xpos, double ypos, String stickmanSize){
         this.XPos = xpos;
         this.YPos = ypos;
-        this.height = height;
-        this.width = width;
-        this.velocity = velocity;
+        this.velocity = 1;
         this.isMovingLeft = false;
         this.isMovingRight = false;
         this.isJumping = false;
         this.isStopped = true;
+        determineSize(stickmanSize);
+    }
+
+    private void determineSize(String size){
+            if(size.toLowerCase().equals("tiny")){
+                this.playerHeight = 40.0;
+                this.playerWidth = 12.0;
+            } else if(size.toLowerCase().equals("normal")){
+                this.playerHeight = 75.0;
+                this.playerWidth = 20.0;
+            } else if(size.toLowerCase().equals("large")){
+                this.playerHeight = 110.0;
+                this.playerWidth =  30.0;
+            } else if(size.toLowerCase().equals("giant")){
+                this.playerHeight = 160.0;
+                this.playerWidth = 42.0;
+            } else { //This should never happen if json file is correct
+                //Set to normal
+                System.out.println("Unable to get proper size. Default: Normal");
+                this.playerHeight = 40.0;
+                this.playerWidth = 12.0;
+            }
     }
 
     @Override
     public String getImagePath() { //needs to change based on walking direction
-        //return  this.imagePath;
         if(index == 4){
             index = 0;
         }
@@ -88,12 +109,12 @@ public class Player implements IEntity, IControllable {
 
     @Override
     public double getHeight() { //need to get from JSON file
-        return this.height;
+        return this.playerHeight;
     }
 
     @Override
     public double getWidth() {
-        return this.width;
+        return this.playerWidth;
     }
 
     @Override
@@ -110,51 +131,19 @@ public class Player implements IEntity, IControllable {
     }
 
     /**
-     * Checks if the player is currently moving to the right.
-     * @return True if player is moving right, else false.
-     */
-    public boolean isMovingRight(){
-        return this.isMovingRight;
-    }
-
-    /**
-     * Checks if player is currently moving to the left.
-     * @return True if player is moving left, else false.
-     */
-    public boolean isMovingLeft(){
-        return this.isMovingLeft;
-    }
-
-    /**
-     * Checks if player is currently jumping.
-     * @return True if player is jumping, else false.
-     */
-    public boolean isJumping(){
-        return this.isJumping;
-    }
-
-    /**
-     * Checks if player is not currently moving.
-     * @return True if player is not moving, else false.
-     */
-    public boolean isStopped(){
-        return this.isStopped;
-    }
-
-    /**
      * Sets new height of player.
-     * @param height The new player height in pixels.
+     * @param playerHeight The new player height in pixels.
      */
-    public void setHeight(double height){
-        this.height = height;
+    public void setHeight(double playerHeight){
+        this.playerHeight = playerHeight;
     }
 
     /**
      * Sets new width of player.
-     * @param width The new player width in pixels.
+     * @param playerWidth The new player width in pixels.
      */
-    public void setWidth(double width){
-        this.width = width;
+    public void setWidth(double playerWidth){
+        this.playerWidth = playerWidth;
     }
 
     /**
@@ -181,38 +170,6 @@ public class Player implements IEntity, IControllable {
      */
     public void setYPos(double ypos){
         this.YPos = ypos;
-    }
-
-    /**
-     * Sets to true if player is moving right, false otherwise.
-     * @param isMovingRight The boolean determining if the player is moving right.
-     */
-    public void setIsMovingRight(boolean isMovingRight){
-        this.isMovingRight = isMovingRight;
-    }
-
-    /**
-     * Sets to true if player is moving left, false otherwise.
-     * @param isMovingLeft The boolean determining if the player is moving left.
-     */
-    public void setIsMovingLeft(boolean isMovingLeft){
-        this.isMovingLeft = isMovingLeft;
-    }
-
-    /**
-     * Sets to true if the player is jumping, false otherwise.
-     * @param isJumping The boolean determining if the player is jumping.
-     */
-    public void setIsJumping(boolean isJumping){
-        this.isJumping = isJumping;
-    }
-
-    /**
-     * Sets to true if the player is not moving, false otherwise.
-     * @param isStopped The boolean determining if the player is not moving.
-     */
-    public void setIsStopped(boolean isStopped){
-        this.isStopped = isStopped;
     }
 
     @Override
@@ -267,5 +224,50 @@ public class Player implements IEntity, IControllable {
             return true;
         }
         return false;
+    }
+
+    @Override //gets called in tick
+    public void update(){
+        double y = this.YPos;
+        //If player moves right, set X position to increment by players velocity
+        if(isMovingRight){
+            //double x = this.XPos;
+            //setXPos(x + velocity);
+            this.XPos += velocity;
+            //If player moves left, set X position to decrement by players velocity
+        } else if (isMovingLeft){
+            //double x = this.XPos;
+            //setXPos(x - velocity);
+            this.XPos -= velocity;
+            if(this.XPos <= 0){ //Handles left border
+                //setXPos(0);
+                this.XPos = 0;
+            }
+        } else {
+            //isStopped, stay as is
+        }
+
+        //jumping
+        /*The following code was created with help from a tutorial on this site:
+         * https://www.instructables.com/id/2D-Jumping-Tutorial-in-Java/
+         * Accessed: 29/09/2019
+         */
+        if(isJumping || !onGround){
+            isJumping = true;
+            y -= jumpStrength;
+            jumpStrength -= weight;
+            setYPos(y);
+
+            if(y <= floorheight){
+                onGround = false;
+            } else {
+                onGround = true;
+                y = floorheight;
+                setYPos(y);
+                isJumping = false;
+                jumpStrength = 5;
+            }
+        }
+        /*END */
     }
 }
