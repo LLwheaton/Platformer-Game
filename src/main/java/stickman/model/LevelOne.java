@@ -29,10 +29,6 @@ public class LevelOne implements Level {
         this.height = height;
         this.entities = entities;
         this.player = player;
-//        Text text = new Text();
-//        text.setText("Lives: ");
-//        text.setX(5);
-//        text.setY(20);
     }
 
     /**
@@ -62,62 +58,31 @@ public class LevelOne implements Level {
     public void tick() {
         for(IEntity entity : entities){
             entity.update();
-
+            //Can you refactor here? complicated conditional...?
             if(entity.toString().equals("slime")){
-                //if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
                 if(checkIntersect(player, entity)){
                     if(player.getJumpStrength() < 0){
                         this.entities.remove(entity);
-                        //entity.dies();
                         break;
-                    } else { //use handle collision?
+                    } else {
                         player.setXPos(player.getStartXPos());
-                        //player.setJumpStrength(5);
                     }
-                    //entity.handleCollision();
-                    //this.entities.remove(entity);
-                    break; //this actually worked? lol
+                    //break; //this actually worked? lol
                 }
             } else if(entity.toString().equals("platform")){
                 if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
-                    //player.setOnPlatform(true);
                     player.handleCollision(entity);
                 }
-                player.setOnPlatform(checkIntersect(player, entity));
-                //System.out.println("intersect? " + checkIntersect(player, entity));
             }
-
         }
     }
 
     public boolean checkIntersect(IEntity a, IEntity b){
-        double ax = a.getXPos();
-        double ay = a.getYPos();
-        double awidth = a.getWidth();
-        double aheight = a.getHeight();
-        double bx = b.getXPos();
-        double by = b.getYPos();
-        double bwidth = b.getWidth();
-        double bheight = b.getHeight();
-        return (ax < (bx + bwidth)) &&
-                ((ax + awidth) > bx) &&
-                (ay - a.getHeight()*.45 < (by + bheight)) &&
-                ((ay - a.getHeight()*.45 + aheight) > by);
-    }
-
-    public boolean checkTopIntersect(IEntity a, IEntity b){
-        double ax = a.getXPos();
-        double ay = a.getYPos();
-        double awidth = a.getWidth();
-        double aheight = a.getHeight();
-        double bx = b.getXPos();
-        double by = b.getYPos();
-        double bwidth = b.getWidth();
-        double bheight = b.getHeight();
-        return (ax < (bx + bwidth)) &&
-                ((ax + awidth) > bx) &&
-                (ay < (by + bheight)) &&
-                ((ay + aheight) > by);
+        double buffer = a.getHeight()*.45;
+        return (a.getXPos() < (b.getXPos() + b.getWidth())) &&
+                ((a.getXPos() + a.getWidth()) > b.getXPos()) &&
+                (a.getYPos() - buffer < (b.getYPos() + b.getHeight())) &&
+                ((a.getYPos() - buffer + a.getHeight()) > b.getYPos());
     }
 
     @Override

@@ -56,11 +56,6 @@ public class Platform implements IEntity {
     }
 
     @Override
-    public void dies(){
-
-    }
-
-    @Override
     public String toString(){
         return "platform";
     }

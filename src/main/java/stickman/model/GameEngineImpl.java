@@ -1,16 +1,10 @@
 package stickman.model;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**Implements the GameEngine interface.*/
 public class GameEngineImpl implements stickman.model.GameEngine{
     private Level levelone;
-    private List<IEntity> entities;
 
     /**
      * Creates new GameEngine with the json config file.
@@ -18,10 +12,6 @@ public class GameEngineImpl implements stickman.model.GameEngine{
      */
     public GameEngineImpl(String filename){
         GameConfig gc = new GameConfig(filename);
-        //game config can create entities and send back a list
-        //so that list can be used to create the level here..
-        entities = new ArrayList<>();
-        this.entities = gc.getEntities();
         this.levelone = gc.getCurrentLevel();
     }
 
@@ -31,8 +21,7 @@ public class GameEngineImpl implements stickman.model.GameEngine{
      */
     @Override
     public Level getCurrentLevel(){
-        return levelone;
-
+        return this.levelone;
     }
     @Override
     public void startLevel(){

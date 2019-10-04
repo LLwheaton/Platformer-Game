@@ -50,11 +50,6 @@ public class Tree implements IEntity{
     }
 
     @Override
-    public void dies() {
-
-    }
-
-    @Override
     public void handleCollision(IEntity entity) {
 
     }

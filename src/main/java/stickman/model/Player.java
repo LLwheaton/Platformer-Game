@@ -56,24 +56,26 @@ public class Player implements IEntity, IControllable {
     }
 
     private void determineSize(String size){
-            if(size.toLowerCase().equals("tiny")){
+        switch (size.toLowerCase()){
+            case "tiny":
                 this.playerHeight = 40.0;
                 this.playerWidth = 12.0;
-            } else if(size.toLowerCase().equals("normal")){
+                break;
+            case "normal":
                 this.playerHeight = 75.0;
                 this.playerWidth = 20.0;
-            } else if(size.toLowerCase().equals("large")){
+                break;
+            case "large":
                 this.playerHeight = 110.0;
                 this.playerWidth =  30.0;
-            } else if(size.toLowerCase().equals("giant")){
+                break;
+            case "giant":
                 this.playerHeight = 160.0;
                 this.playerWidth = 42.0;
-            } else { //This should never happen if json file is correct
-                //Set to normal
-                System.out.println("Unable to get proper size. Default: Normal");
-                this.playerHeight = 40.0;
-                this.playerWidth = 12.0;
-            }
+                break;
+            default:
+                throw new IllegalArgumentException("Valid size not given");
+        }
     }
 
     @Override
@@ -93,12 +95,12 @@ public class Player implements IEntity, IControllable {
         if(isMovingRight){
             isFacingRight = true;
             index++;
-            return imageGoingRight[n++];
+            return imageGoingRight[n];
         }
         if(isMovingLeft){
             isFacingRight = false;
             index++;
-            return imageGoingLeft[n++];
+            return imageGoingLeft[n];
         }
         if(isFacingRight){
             return "ch_stand1.png";
@@ -254,51 +256,16 @@ public class Player implements IEntity, IControllable {
 
     @Override //gets called in tick
     public void update(){
-        //System.out.println("Ypos: " + this.YPos);
         double y = this.YPos;
-        //If player moves right, set X position to increment by players velocity
         if(isMovingRight){
-            //double x = this.XPos;
-            //setXPos(x + velocity);
             this.XPos += velocity;
-            //If player moves left, set X position to decrement by players velocity
-        } else if (isMovingLeft){
-            //double x = this.XPos;
-            //setXPos(x - velocity);
+        }
+        if (isMovingLeft) {
             this.XPos -= velocity;
-            if(this.XPos <= 0){ //Handles left border
-                //setXPos(0);
+            if (this.XPos <= 0) { //Handles left border
                 this.XPos = 0;
             }
-        } else {
-            //isStopped, stay as is
         }
-
-        //jumping
-        /*The following code was created with help from a tutorial on this site:
-         * https://www.instructables.com/id/2D-Jumping-Tutorial-in-Java/
-         * Accessed: 29/09/2019
-         */
-//        if(isJumping || !onGround){
-//            //isJumping = true;
-//            y -= jumpStrength;
-//            jumpStrength -= weight;
-//            System.out.println("jumpstrength: " + jumpStrength);
-//            setYPos(y);
-//
-//            if(y <= floorheight - playerHeight*.45){
-//                onGround = false;
-//            } else {
-//                onGround = true;
-//                onPlatform = false;
-//                y = floorheight - playerHeight*.45;
-//                setYPos(y);
-//                isJumping = false;
-//                jumpStrength = 5;
-//            }
-//        }
-//        /*END */
-        //
         if(isJumping){
             onGround = false;
             onFloor = false;
@@ -327,23 +294,15 @@ public class Player implements IEntity, IControllable {
             }
         }
 
-        //System.out.println("ISJUMPING: " + isJumping + " ONGROUND: " + onGround + " JUMP: " + jumpStrength + " ONPLATFORM:" + onPlatform + " ONFLOOR: "  + onFloor);
-
     }
+
     @Override
     public void handleCollision(IEntity entity){
         this.YPos = entity.getYPos() - playerHeight*.4;
         isJumping = false; //only allows jump sound
-        //onPlatform = true;
-        //onGround = false;
         onGround = true;
         onFloor = false;
         jumpStrength = 12;
-    }
-
-    @Override
-    public void dies(){
-
     }
 
     @Override

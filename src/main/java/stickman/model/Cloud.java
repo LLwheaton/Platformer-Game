@@ -98,8 +98,4 @@ public class Cloud implements IEntity {
 
     }
 
-    @Override
-    public void dies(){
-
-    }
 }

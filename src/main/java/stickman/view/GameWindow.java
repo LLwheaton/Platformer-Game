@@ -70,6 +70,18 @@ public class GameWindow {
             entityView.markForDelete();
         }
 
+        viewportAction();
+        handleEntityViews(entities);
+
+        for (EntityView entityView: entityViews) {
+            if (entityView.isMarkedForDelete()) {
+                pane.getChildren().remove(entityView.getNode());
+            }
+        }
+        entityViews.removeIf(EntityView::isMarkedForDelete);
+    }
+
+    public void viewportAction(){
         double heroXPos = model.getCurrentLevel().getHeroX();
         heroXPos -= xViewportOffset;
 
@@ -85,7 +97,9 @@ public class GameWindow {
         }
 
         backgroundDrawer.update(xViewportOffset);
+    }
 
+    public void handleEntityViews(List<IEntity> entities){
         for (IEntity entity: entities) {
             boolean notFound = true;
             for (EntityView view: entityViews) {
@@ -101,13 +115,6 @@ public class GameWindow {
                 pane.getChildren().add(entityView.getNode());
             }
         }
-
-        for (EntityView entityView: entityViews) {
-            if (entityView.isMarkedForDelete()) {
-                pane.getChildren().remove(entityView.getNode());
-            }
-        }
-        entityViews.removeIf(EntityView::isMarkedForDelete);
     }
 
 }

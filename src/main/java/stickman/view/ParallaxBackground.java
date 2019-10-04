@@ -21,23 +21,8 @@ public class ParallaxBackground implements BackgroundDrawer {
         double height = pane.getHeight();
         double floorHeight = model.getCurrentLevel().getFloorHeight();
 
-        this.images = new Image[6];
-
-        images[0] = new Image("landscape_0000_1_trees.png");
-        images[1] = new Image("landscape_0001_2_trees.png");
-        images[2] = new Image("landscape_0002_3_trees.png");
-        images[3] = new Image("landscape_0003_4_mountain.png");
-        images[4] = new Image("landscape_0004_5_clouds.png");
-        images[5] = new Image("landscape_0005_6_background.png");
-
-        this.parallaxEffect = new double[6];
-
-        parallaxEffect[0] = 0.5;
-        parallaxEffect[1] = 0.4;
-        parallaxEffect[2] = 0.2;
-        parallaxEffect[3] = 0.05;
-        parallaxEffect[4] = 0.05;
-        parallaxEffect[5] = 0.0;
+        createImageArray();
+        createParallaxEffectArray();
 
         this.imageViews = new ImageView[6];
 
@@ -66,7 +51,6 @@ public class ParallaxBackground implements BackgroundDrawer {
     @Override
     public void update(double xViewportOffset) {
 
-
         for (int i = 0;i < 6; i++) {
             double rawHeight = images[i].getHeight();
             double rawWidth = images[i].getWidth() / 2; // images are all double stitched
@@ -74,5 +58,25 @@ public class ParallaxBackground implements BackgroundDrawer {
             double translation = (xViewportOffset * widthScale * parallaxEffect[i]) % rawWidth;
             imageViews[i].setViewport(new Rectangle2D(translation, 0, rawWidth, rawHeight));
         }
+    }
+    private void createImageArray(){
+
+        this.images = new Image[6];
+        images[0] = new Image("landscape_0000_1_trees.png");
+        images[1] = new Image("landscape_0001_2_trees.png");
+        images[2] = new Image("landscape_0002_3_trees.png");
+        images[3] = new Image("landscape_0003_4_mountain.png");
+        images[4] = new Image("landscape_0004_5_clouds.png");
+        images[5] = new Image("landscape_0005_6_background.png");
+    }
+    private void createParallaxEffectArray(){
+
+        this.parallaxEffect = new double[6];
+        parallaxEffect[0] = 0.5;
+        parallaxEffect[1] = 0.4;
+        parallaxEffect[2] = 0.2;
+        parallaxEffect[3] = 0.05;
+        parallaxEffect[4] = 0.05;
+        parallaxEffect[5] = 0.0;
     }
 }

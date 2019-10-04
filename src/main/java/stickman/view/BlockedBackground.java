@@ -15,24 +15,32 @@ public class BlockedBackground implements BackgroundDrawer {
     public void draw(GameEngine model, Pane pane) {
         this.model = model;
         this.pane = pane;
-
         double width = pane.getWidth();
         double height = pane.getHeight();
         double floorHeight = model.getCurrentLevel().getFloorHeight();
 
-        this.sky = new Rectangle(0, 0, width, floorHeight);
-        sky.setFill(Paint.valueOf("LIGHTBLUE"));
-        sky.setViewOrder(1000.0);
-
-        this.floor = new Rectangle(0, floorHeight, width, height - floorHeight);
-        floor.setFill(Paint.valueOf("GREEN"));
-        floor.setViewOrder(1000.0);
-
-        pane.getChildren().addAll(sky, floor);
+        createSky(width, floorHeight);
+        createFloor(height, width, floorHeight);
     }
 
     @Override
     public void update(double xViewportOffset) {
         // do nothing since this is a static bg
+    }
+
+    private void createSky(double width, double floorHeight){
+
+        this.sky = new Rectangle(0, 0, width, floorHeight);
+        sky.setFill(Paint.valueOf("LIGHTBLUE"));
+        sky.setViewOrder(1000.0);
+        pane.getChildren().add(sky);
+    }
+
+    private void createFloor(double height, double width, double floorHeight){
+
+        this.floor = new Rectangle(0, floorHeight, width, height - floorHeight);
+        floor.setFill(Paint.valueOf("GREEN"));
+        floor.setViewOrder(1000.0);
+        pane.getChildren().add(floor);
     }
 }

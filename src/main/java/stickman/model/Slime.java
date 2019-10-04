@@ -1,19 +1,20 @@
 package stickman.model;
 
 public class Slime implements IEntity{
-    private String[] imagePath = {"slimeBa.png", "slimeBb.png"};
+    private String[] imagePath;
     private int index = 0;
+    private String type;
     private double XPos;
     private double YPos;
     private double height;
     private double width;
     private Layer layer = Layer.FOREGROUND;
-    private boolean isDead = false;
 
     private int range = 30;
 
-    public Slime(double xpos, double ypos, double height, double width){
-        //this.imagePath = imagePath;
+    public Slime(String type, double xpos, double ypos, double height, double width){
+        this.imagePath = determineImages(type);
+        this.type = type;
         this.XPos = xpos;
         this.YPos = ypos - height*.3;
         this.height = height;
@@ -28,13 +29,17 @@ public class Slime implements IEntity{
         int n = index / 7;
         index++;
         return imagePath[n++];
-//        if(index == 0){
-//            index = 1;
-//            return imagePath[0];
-//        } else {
-//            index = 0;
-//            return imagePath[1];
-//        }
+    }
+
+    public String[] determineImages(String type){
+        switch (type) {
+            case "blue": return new String[]{"slimeBa.png", "slimeBb.png"};
+            case "green": return new String[]{"slimeGa.png","slimeGb.png"};
+            case "red": return new String[]{"slimeRa.png", "slimeRb.png"};
+            case "purple": return new String[]{"slimePa.png","slimePb.png"};
+            case "yellow": return new String[]{"slimeYa.png","slimeYb.png"};
+            default: throw new IllegalArgumentException("Valid slime colour not given");
+        }
     }
 
     @Override
@@ -64,17 +69,7 @@ public class Slime implements IEntity{
 
     @Override
     public void update(){
-        //System.out.println("slime xpos: " + this.XPos);
-//        if(this.XPos < 0){
-//            this.XPos = 680;
-//        }
         this.XPos -= 2;
-
-
-
-    }
-    public void dies(){
-        isDead = true;
     }
 
     @Override

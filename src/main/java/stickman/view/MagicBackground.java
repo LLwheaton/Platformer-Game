@@ -4,8 +4,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import stickman.model.GameEngine;
 
 public class MagicBackground implements BackgroundDrawer {
@@ -19,25 +17,9 @@ public class MagicBackground implements BackgroundDrawer {
     public void draw(GameEngine model, Pane pane) {
         this.width = pane.getWidth();
         double height = pane.getHeight();
-        double floorHeight = model.getCurrentLevel().getFloorHeight();
 
-        this.images = new Image[4];
-
-        images[0] = new Image("BGFront.png");
-        images[1] = new Image("BGBack.png");
-        images[2] = new Image("CloudsFront.png");
-        images[3] = new Image("CloudsBack.png");
-//        images[4] = new Image("landscape_0004_5_clouds.png");
-//        images[5] = new Image("landscape_0005_6_background.png");
-
-        this.parallaxEffect = new double[4];
-
-        parallaxEffect[0] = 0.5;
-        parallaxEffect[1] = 0.4;
-        parallaxEffect[2] = 0.2;
-        parallaxEffect[3] = 0.05;
-//        parallaxEffect[4] = 0.05;
-//        parallaxEffect[5] = 0.0;
+        createImageArray();
+        createParallaxEffectArray();
 
         this.imageViews = new ImageView[4];
 
@@ -55,17 +37,10 @@ public class MagicBackground implements BackgroundDrawer {
 
             pane.getChildren().add(imageViews[i]);
         }
-
-        //Rectangle floor = new Rectangle(0, floorHeight, width, height - floorHeight);
-        //floor.setFill(Paint.valueOf("#1d2b38"));
-        //floor.setViewOrder(1000.0);
-
-        //pane.getChildren().add(floor);
     }
 
     @Override
     public void update(double xViewportOffset) {
-
 
         for (int i = 0;i < 4; i++) {
             double rawHeight = images[i].getHeight();
@@ -74,5 +49,21 @@ public class MagicBackground implements BackgroundDrawer {
             double translation = (xViewportOffset * widthScale * parallaxEffect[i]) % rawWidth;
             imageViews[i].setViewport(new Rectangle2D(translation, 0, rawWidth, rawHeight));
         }
+    }
+
+    private void createParallaxEffectArray(){
+        this.parallaxEffect = new double[4];
+        parallaxEffect[0] = 0.5;
+        parallaxEffect[1] = 0.4;
+        parallaxEffect[2] = 0.2;
+        parallaxEffect[3] = 0.05;
+    }
+
+    private void createImageArray(){
+        this.images = new Image[4];
+        images[0] = new Image("BGFront.png");
+        images[1] = new Image("BGBack.png");
+        images[2] = new Image("CloudsFront.png");
+        images[3] = new Image("CloudsBack.png");
     }
 }
