@@ -29,8 +29,8 @@ public class Player implements IEntity, IControllable {
 
     private boolean onGround = true;
     private double floorheight = 350;
-    private double jumpStrength = 5;
-    private double weight = 0.1;
+    private double jumpStrength = 12;
+    private double weight = 0.5;
     private boolean onPlatform = false;
     private boolean onFloor = true;
 
@@ -47,7 +47,7 @@ public class Player implements IEntity, IControllable {
         this.startXPos = xpos;
         this.XPos = xpos;
         this.YPos = ypos - playerHeight*.45;
-        this.velocity = 1;
+        this.velocity = 2;
         this.isMovingLeft = false;
         this.isMovingRight = false;
         this.isJumping = false;
@@ -298,31 +298,30 @@ public class Player implements IEntity, IControllable {
 //            }
 //        }
 //        /*END */
-        if(isJumping || !onGround){
+        //
+        if(isJumping){
             onGround = false;
             onFloor = false;
             y -= jumpStrength;
             jumpStrength -= weight;
             setYPos(y);
-
-            if(y > floorheight-playerHeight*.4){
+            if(y > floorheight-playerHeight*.4){ //Land on floor
                 y = floorheight-playerHeight*.4;
                 setYPos(y);
                 isJumping = false;
-                jumpStrength = 5;
+                jumpStrength = 12;
                 onGround = true;
-                onFloor = true;
-            }
-        } else {
-            jumpStrength = -3;
+                onFloor = true;            }
+        } else { //When walking off platform, fall to floor
+            jumpStrength = -8;
             y -= jumpStrength;
             jumpStrength -= weight;
             setYPos(y);
-            if(y > floorheight-playerHeight*.4){
+            if(y > floorheight-playerHeight*.4){ //Land on floor
                 y = floorheight-playerHeight*.4;
                 setYPos(y);
                 isJumping = false;
-                jumpStrength = 5;
+                jumpStrength = 12;
                 onGround = true;
                 onFloor = true;
             }
@@ -339,7 +338,7 @@ public class Player implements IEntity, IControllable {
         //onGround = false;
         onGround = true;
         onFloor = false;
-        jumpStrength = 5;
+        jumpStrength = 12;
     }
 
     @Override

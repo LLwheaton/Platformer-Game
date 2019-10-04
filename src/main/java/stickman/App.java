@@ -28,7 +28,7 @@ public class App extends Application {
 
         GameEngine model = new GameEngineImpl("src\\main\\resources\\default.json");
         GameWindow window = new GameWindow(model, 640, 400);
-        window.run();
+        //window.run();
 
         primaryStage.setTitle("Stickman");
         primaryStage.setScene(window.getScene());

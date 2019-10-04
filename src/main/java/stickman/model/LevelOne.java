@@ -29,10 +29,10 @@ public class LevelOne implements Level {
         this.height = height;
         this.entities = entities;
         this.player = player;
-        Text text = new Text();
-        text.setText("Lives: ");
-        text.setX(5);
-        text.setY(20);
+//        Text text = new Text();
+//        text.setText("Lives: ");
+//        text.setX(5);
+//        text.setY(20);
     }
 
     /**
@@ -79,11 +79,9 @@ public class LevelOne implements Level {
                     break; //this actually worked? lol
                 }
             } else if(entity.toString().equals("platform")){
-
                 if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
                     //player.setOnPlatform(true);
                     player.handleCollision(entity);
-
                 }
                 player.setOnPlatform(checkIntersect(player, entity));
                 //System.out.println("intersect? " + checkIntersect(player, entity));

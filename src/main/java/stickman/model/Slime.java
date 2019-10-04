@@ -68,7 +68,7 @@ public class Slime implements IEntity{
 //        if(this.XPos < 0){
 //            this.XPos = 680;
 //        }
-        this.XPos -= 1;
+        this.XPos -= 2;
 
 
 
