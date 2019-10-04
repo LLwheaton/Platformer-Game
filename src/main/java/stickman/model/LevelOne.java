@@ -79,13 +79,16 @@ public class LevelOne implements Level {
                     break; //this actually worked? lol
                 }
             } else if(entity.toString().equals("platform")){
-                //System.out.println("intersect?: " + checkIntersect(player, entity));
-                //System.out.println("velocity: " + player.getVelocity());
-                if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
 
+                if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
+                    //player.setOnPlatform(true);
                     player.handleCollision(entity);
+
                 }
+                player.setOnPlatform(checkIntersect(player, entity));
+                //System.out.println("intersect? " + checkIntersect(player, entity));
             }
+
         }
     }
 

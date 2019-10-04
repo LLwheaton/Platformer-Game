@@ -32,6 +32,9 @@ public class Player implements IEntity, IControllable {
     private double jumpStrength = 5;
     private double weight = 0.1;
     private boolean onPlatform = false;
+    private boolean onFloor = true;
+
+    //boolean canJump = true;
 
     /**
      * Creates a new player and sets booleans for movement
@@ -151,10 +154,16 @@ public class Player implements IEntity, IControllable {
         this.playerHeight = playerHeight;
     }
 
+    public void setOnPlatform(boolean isOnPlatform){
+        this.onPlatform = isOnPlatform;
+    }
+
     public void setJumpStrength(double jumpStrength){
         this.jumpStrength = jumpStrength;
     }
-
+    public void setOnGround(boolean onGround){
+        this.onGround = onGround;
+    }
     /**
      * Sets new width of player.
      * @param playerWidth The new player width in pixels.
@@ -270,31 +279,67 @@ public class Player implements IEntity, IControllable {
          * https://www.instructables.com/id/2D-Jumping-Tutorial-in-Java/
          * Accessed: 29/09/2019
          */
-        if(isJumping || !onGround || onPlatform){
-            isJumping = true;
+//        if(isJumping || !onGround){
+//            //isJumping = true;
+//            y -= jumpStrength;
+//            jumpStrength -= weight;
+//            System.out.println("jumpstrength: " + jumpStrength);
+//            setYPos(y);
+//
+//            if(y <= floorheight - playerHeight*.45){
+//                onGround = false;
+//            } else {
+//                onGround = true;
+//                onPlatform = false;
+//                y = floorheight - playerHeight*.45;
+//                setYPos(y);
+//                isJumping = false;
+//                jumpStrength = 5;
+//            }
+//        }
+//        /*END */
+        if(isJumping || !onGround){
+            onGround = false;
+            onFloor = false;
             y -= jumpStrength;
             jumpStrength -= weight;
-            System.out.println("jumpstrength: " + jumpStrength);
             setYPos(y);
 
-            if(y <= floorheight - playerHeight*.45){
-                onGround = false;
-            } else {
-                onGround = true;
-                onPlatform = false;
-                y = floorheight - playerHeight*.45;
+            if(y > floorheight-playerHeight*.4){
+                y = floorheight-playerHeight*.4;
                 setYPos(y);
                 isJumping = false;
                 jumpStrength = 5;
+                onGround = true;
+                onFloor = true;
+            }
+        } else {
+            jumpStrength = -3;
+            y -= jumpStrength;
+            jumpStrength -= weight;
+            setYPos(y);
+            if(y > floorheight-playerHeight*.4){
+                y = floorheight-playerHeight*.4;
+                setYPos(y);
+                isJumping = false;
+                jumpStrength = 5;
+                onGround = true;
+                onFloor = true;
             }
         }
-        /*END */
+
+        //System.out.println("ISJUMPING: " + isJumping + " ONGROUND: " + onGround + " JUMP: " + jumpStrength + " ONPLATFORM:" + onPlatform + " ONFLOOR: "  + onFloor);
+
     }
     @Override
     public void handleCollision(IEntity entity){
         this.YPos = entity.getYPos() - playerHeight*.4;
         isJumping = false; //only allows jump sound
-        onPlatform = true;
+        //onPlatform = true;
+        //onGround = false;
+        onGround = true;
+        onFloor = false;
+        jumpStrength = 5;
     }
 
     @Override

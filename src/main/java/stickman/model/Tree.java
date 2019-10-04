@@ -46,7 +46,7 @@ public class Tree implements IEntity{
 
     @Override
     public void update() {
-
+        //System.out.println("tree xpos: " + this.xpos);
     }
 
     @Override

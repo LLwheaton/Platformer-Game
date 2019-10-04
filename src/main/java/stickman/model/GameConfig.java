@@ -56,7 +56,7 @@ public class GameConfig {
         Cloud cloud1 = new Cloud("cloud_2.png", 150.0, 150.0, 50.0, 80.0, cloudVelocity);
         Cloud cloud2 = new Cloud("cloud_2.png", 500.0, 50.0, 50.0, 80.0, cloudVelocity);
         Platform platform = new Platform("platform.png",250, floorHeight-100, 70, 70);
-        Platform platform2 = new Platform("platform2.png", 700, floorHeight - 80, 40,40);
+        Platform platform2 = new Platform("platform2.png", 400, floorHeight - 80, 40,40);
         Slime slime = new Slime(900, floorHeight-12, 30, 30);
         Tree tree = new Tree(500, floorHeight-90, 100,100);
         //Bat bat = new Bat(200, floorHeight - 30, 30,30);
