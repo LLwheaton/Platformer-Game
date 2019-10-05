@@ -102,6 +102,7 @@ public class GameConfig {
         Player player2 = (Player)player; //CASTING UGH
         player2.setVelocity(velocity);
         player2.setNumLives((int)lives);
+        player2.setStartXPos(this.startXPos);
         entities.add(player);
         return player;
     }

@@ -29,19 +29,19 @@ public class Slime implements IEntity{
         }
         int n = index / 7;
         index++;
-        return imagePath[n++];
+        return imagePath[n];
     }
 
-    public String[] determineImages(String type){
-        switch (type) {
-            case "blue": return new String[]{"slimeBa.png", "slimeBb.png"};
-            case "green": return new String[]{"slimeGa.png","slimeGb.png"};
-            case "red": return new String[]{"slimeRa.png", "slimeRb.png"};
-            case "purple": return new String[]{"slimePa.png","slimePb.png"};
-            case "yellow": return new String[]{"slimeYa.png","slimeYb.png"};
-            default: throw new IllegalArgumentException("Valid slime colour not given");
-        }
-    }
+//    public String[] determineImages(String type){
+//        switch (type) {
+//            case "blue": return new String[]{"slimeBa.png", "slimeBb.png"};
+//            case "green": return new String[]{"slimeGa.png","slimeGb.png"};
+//            case "red": return new String[]{"slimeRa.png", "slimeRb.png"};
+//            case "purple": return new String[]{"slimePa.png","slimePb.png"};
+//            case "yellow": return new String[]{"slimeYa.png","slimeYb.png"};
+//            default: throw new IllegalArgumentException("Valid slime colour not given");
+//        }
+//    }
 
     @Override
     public double getXPos() {
@@ -83,7 +83,7 @@ public class Slime implements IEntity{
         this.XPos = xpos;
     }
     public void setYPos(double ypos){
-        this.YPos = ypos-height*.3;
+        this.YPos = ypos;
     }
 
     @Override

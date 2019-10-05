@@ -138,16 +138,16 @@ public class Player implements IEntity, IControllable {
         this.playerHeight = playerHeight;
     }
 
-    public void setOnPlatform(boolean isOnPlatform){
-        this.onPlatform = isOnPlatform;
-    }
+//    public void setOnPlatform(boolean isOnPlatform){
+//        this.onPlatform = isOnPlatform;
+//    }
 
-    public void setJumpStrength(double jumpStrength){
-        this.jumpStrength = jumpStrength;
-    }
-    public void setOnGround(boolean onGround){
-        this.onGround = onGround;
-    }
+//    public void setJumpStrength(double jumpStrength){
+//        this.jumpStrength = jumpStrength;
+//    }
+//    public void setOnGround(boolean onGround){
+//        this.onGround = onGround;
+//    }
     /**
      * Sets new width of player.
      * @param playerWidth The new player width in pixels.

@@ -5,10 +5,11 @@ import stickman.App;
 import stickman.model.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class StickmanTests {
 
-    //Cloud testing
+    //Cloud testing////////////////////////////////////////////////////////
     @Test
     public void cloudTest() {
         Cloud cloud = new Cloud();
@@ -59,10 +60,119 @@ public class StickmanTests {
         Cloud cloud = new Cloud();
         cloud.handleCollision(cloud);
     }
+    @Test
+    public void cloudVelocityTest(){
+        Cloud cloud = new Cloud();
+        cloud.setCloudVelocity(35);
+    }
 
-    //Player testing
+    //Player testing/////////////////////////////////////////////////////////////
+    @Test
+    public void playerTest(){
+        Player player = new Player();
+        String image = player.getImagePath();
+        assertEquals("ch_stand1.png", image);
+    }
+    @Test
+    public void playerHeightTest(){
+        Player player = new Player();
+        player.setHeight(50);
+        double height = player.getHeight();
+        assertEquals(50.0, height, 0.1);
+    }
+    @Test
+    public void playerWidthTest(){
+        Player player = new Player();
+        player.setWidth(50);
+        double width = player.getWidth();
+        assertEquals(50.0, width, 0.1);
+    }
+    @Test
+    public void playerXTest(){
+        Player player = new Player();
+        player.setXPos(50);
+        double xpos = player.getXPos();
+        assertEquals(50.0, xpos, 0.1);
+    }
+    @Test
+    public void playerYTest(){
+        Player player = new Player();
+        player.setYPos(50);
+        double ypos = player.getYPos();
+        assertEquals(50.0, ypos, 0.1);
+    }
+    @Test
+    public void playerLayerTest(){
+        Player player = new Player();
+        IEntity.Layer layer = player.getLayer();
+        assertEquals(IEntity.Layer.FOREGROUND, layer);
+    }
+    @Test
+    public void playerCollisionTest(){
+        Player player = new Player();
+        //***************************************************
+    }
+    @Test
+    public void playerVelocityTest(){
+        Player player = new Player();
+        player.setVelocity(3);
+        double velocity = player.getVelocity();
+        assertEquals(3, velocity, 0.1);
+    }
+    @Test
+    public void playerUpdateTest(){
+        Player player = new Player();
+        //**************************************************************
+    }
+    @Test
+    public void playerStartXPosTest(){
+        Player player = new Player();
+        player.setStartXPos(50);
+        double x = player.getStartXPos();
+        assertEquals(50, x, 0.1);
+    }
+    @Test
+    public void playerJumpStrengthTest(){
+        Player player = new Player();
+        double j = player.getJumpStrength();
+        assertEquals(12, j, 0.1);
+    }
+    @Test
+    public void playerLivesTest(){
+        Player player = new Player();
+        player.setNumLives(6);
+    }
+    @Test
+    public void playerDeathTest(){
+        Player player = new Player();
+        player.death();
+    }
+    @Test
+    public void playerJumpTest(){
+        Player player = new Player();
+        boolean res = player.jump();
+        assertTrue(res);
+    }
+    @Test
+    public void playerLeftTest(){
+        Player player = new Player();
+        boolean res = player.moveLeft();
+        assertTrue(res);
+    }
+    @Test
+    public void playerRightTest(){
+        Player player = new Player();
+        boolean res = player.moveRight();
+        assertTrue(res);
+    }
+    @Test
+    public void playerStopMovingTest(){
+        Player player = new Player();
+        boolean res = player.stopMoving();
+        assertTrue(!res);
+    }
 
-    //Coin testing
+    //Coin testing///////////////////////////////////////////////////////////
     @Test
     public void coinTest(){
         Coin coin = new Coin();
@@ -114,7 +224,7 @@ public class StickmanTests {
         coin.handleCollision(coin);
     }
 
-    //Finish line testing
+    //Finish line testing///////////////////////////////////////////////////
     @Test
     public void finishLineTest(){
         FinishLine fl = new FinishLine();
@@ -165,8 +275,14 @@ public class StickmanTests {
         FinishLine fl = new FinishLine();
         fl.handleCollision(fl);
     }
+    @Test
+    public void finishLineToStringTest(){
+        FinishLine fl = new FinishLine();
+        String str = fl.toString();
+        assertEquals("finish",str);
+    }
 
-    //Entity Factory testing
+    //Entity Factory testing/////////////////////////////////////////////////////
     @Test
     public void factorySlimeTest(){
         EntityFactory f = new EntityFactory();
@@ -209,13 +325,49 @@ public class StickmanTests {
         IEntity entity = f.createEntity("something");
     }
 
-    //GameConfig testing
+    //GameConfig testing//////////////////////////////////////////////////
 
-    //GameEngine testing
+    //GameEngine testing///////////////////////////////////////////////////
+    @Test
+    public void gameEngineTest(){
+        GameEngineImpl ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        Level level = ge.getCurrentLevel();
+        ge.startLevel();
+    }
+    @Test
+    public void gameEngineTickTest(){
+        GameEngineImpl ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        ge.tick();
+    }
+    @Test
+    public void gameEngineJumpTest(){
+        GameEngineImpl ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        boolean res = ge.jump();
+        assertTrue(res);
+    }
+    @Test
+    public void gameEngineLeftTest(){
+        GameEngineImpl ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        boolean res = ge.moveLeft();
+        assertTrue(res);
+    }
+    @Test
+    public void gameEngineRightTest(){
+        GameEngineImpl ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        boolean res = ge.moveRight();
+        assertTrue(res);
+    }
+    @Test
+    public void gameEngineStopMovingTest(){
+        GameEngineImpl ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        boolean res = ge.stopMoving();
+        assertTrue(!res);
+    }
 
-    //Level testing
+    //Level testing////////////////////////////////////////////////////////
 
-    //Platform testing
+    //Platform testing//////////////////////////////////////////////////////
+
     @Test
     public void platformTest(){
         Platform p = new Platform();
@@ -267,10 +419,72 @@ public class StickmanTests {
         p.handleCollision(p);
     }
 
-    //Slime testing
+    //Slime testing//////////////////////////////////////////////////////////
+    @Test
+    public void slimeTest(){
+        Slime slime = new Slime();
+        String image = slime.getImagePath();
+        assertEquals("slimeRa.png", image);
+    }
+    @Test
+    public void slimeHeightTest(){
+        Slime slime = new Slime();
+        slime.setHeight(50);
+        double height = slime.getHeight();
+        assertEquals(50.0, height, 0.1);
+    }
+    @Test
+    public void slimeWidthTest(){
+        Slime slime = new Slime();
+        slime.setWidth(50);
+        double width = slime.getWidth();
+        assertEquals(50.0, width, 0.1);
+    }
+    @Test
+    public void slimeXTest(){
+        Slime slime = new Slime();
+        slime.setXPos(50);
+        double xpos = slime.getXPos();
+        assertEquals(50.0, xpos, 0.1);
+    }
+    @Test
+    public void slimeYTest(){
+        Slime slime = new Slime();
+        slime.setYPos(50);
+        double ypos = slime.getYPos();
+        assertEquals(50.0, ypos, 0.1);
+    }
+    @Test
+    public void slimeLayerTest(){
+        Slime slime = new Slime();
+        IEntity.Layer layer = slime.getLayer();
+        assertEquals(IEntity.Layer.FOREGROUND, layer);
+    }
+    @Test
+    public void slimeUpdateTest(){
+        Slime slime = new Slime();
+        slime.update();
+    }
+    @Test
+    public void slimeCollisionTest(){
+        Slime slime = new Slime();
+        slime.handleCollision(slime);
+    }
+    @Test
+    public void slimeVelocityTest(){
+        Slime slime = new Slime();
+        slime.setVelocity(3);
+    }
+    @Test
+    public void slimeUpdateTest2(){
+        Slime slime = new Slime();
+        double XPos = -2;
+        slime.setXPos(XPos);
+        slime.update();
+        assertEquals(3500.0, slime.getXPos(), 0.1);
+    }
 
-
-    //Tree testing
+    //Tree testing///////////////////////////////////////////////////////////
     @Test
     public void treeTest(){
         Tree tree = new Tree();
