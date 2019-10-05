@@ -12,6 +12,5 @@ public class EntityFactory {
             case "coin": return new Coin();
             default: throw new IllegalArgumentException("Invalid type given");
         }
-        //return new Player(xpos, ypos, height, width);
     }
 }

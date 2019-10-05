@@ -106,4 +106,9 @@ public class Cloud implements IEntity {
 
     }
 
+    @Override
+    public String toString(){
+        return "cloud";
+    }
+
 }

@@ -6,7 +6,7 @@ public class Platform implements IEntity {
     private double YPos;
     private double height;
     private double width;
-    private Layer layer = Layer.BACKGROUND;
+    private Layer layer = Layer.FOREGROUND;
 
     public Platform(){
         //this.imagePath = imagePath;

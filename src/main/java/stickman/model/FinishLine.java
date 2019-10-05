@@ -6,7 +6,7 @@ public class FinishLine implements IEntity {
     private double YPos;
     private double height;
     private double width;
-    private Layer layer = Layer.BACKGROUND;
+    private Layer layer = Layer.FOREGROUND;
 
     public FinishLine(){
         //this.XPos = xpos;
@@ -72,6 +72,6 @@ public class FinishLine implements IEntity {
 
     @Override
     public String toString(){
-        return "finishline";
+        return "finish";
     }
 }

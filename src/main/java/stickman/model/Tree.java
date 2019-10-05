@@ -61,11 +61,16 @@ public class Tree implements IEntity{
 
     @Override
     public void update() {
-        //System.out.println("tree xpos: " + this.xpos);
+
     }
 
     @Override
     public void handleCollision(IEntity entity) {
 
+    }
+
+    @Override
+    public String toString(){
+        return "tree";
     }
 }
