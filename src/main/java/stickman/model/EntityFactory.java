@@ -1,6 +1,17 @@
 package stickman.model;
 
-public abstract class EntityFactory{
+public class EntityFactory {
 
-    public abstract IEntity createEntity(double xpos, double ypos, double height, double width);
+    public IEntity createEntity(String type) {
+        switch (type.toLowerCase()){
+            case "player": return new Player();
+            case "cloud": return new Cloud();
+            case "slime": return new Slime();
+            case "platform": return new Platform();
+            case "tree": return new Tree();
+            case "coin": return new Coin();
+            default: throw new IllegalArgumentException("Invalid type given");
+        }
+        //return new Player(xpos, ypos, height, width);
+    }
 }

@@ -39,18 +39,18 @@ public class Player implements IEntity, IControllable {
 
     //boolean canJump = true;
 
-    /**
-     * Creates a new player and sets booleans for movement
-     * @param xpos The starting X position of the player in the Game Window.
-     * @param ypos The starting Y position of the player in the Game Window.
-     */
-    public Player(double xpos, double ypos, double height, double width){
+//    /**
+//     * Creates a new player and sets booleans for movement
+//     * @param xpos The starting X position of the player in the Game Window.
+//     * @param ypos The starting Y position of the player in the Game Window.
+//     */
+    public Player(){
 
-        this.startXPos = xpos;
-        this.XPos = xpos;
-        this.YPos = ypos - height*.45;
-        this.playerHeight = height;
-        this.playerWidth = width;
+//        this.startXPos = xpos;
+//        this.XPos = xpos;
+//        this.YPos = ypos - height*.45;
+//        this.playerHeight = height;
+//        this.playerWidth = width;
         //this.velocity = 2;
         this.isMovingLeft = false;
         this.isMovingRight = false;
@@ -59,28 +59,28 @@ public class Player implements IEntity, IControllable {
 
     }
 
-    private void determineSize(String size){
-        switch (size.toLowerCase()){
-            case "tiny":
-                this.playerHeight = 40.0;
-                this.playerWidth = 12.0;
-                break;
-            case "normal":
-                this.playerHeight = 75.0;
-                this.playerWidth = 20.0;
-                break;
-            case "large":
-                this.playerHeight = 110.0;
-                this.playerWidth =  30.0;
-                break;
-            case "giant":
-                this.playerHeight = 160.0;
-                this.playerWidth = 42.0;
-                break;
-            default:
-                throw new IllegalArgumentException("Valid size not given");
-        }
-    }
+//    private void determineSize(String size){
+//        switch (size.toLowerCase()){
+//            case "tiny":
+//                this.playerHeight = 40.0;
+//                this.playerWidth = 12.0;
+//                break;
+//            case "normal":
+//                this.playerHeight = 75.0;
+//                this.playerWidth = 20.0;
+//                break;
+//            case "large":
+//                this.playerHeight = 110.0;
+//                this.playerWidth =  30.0;
+//                break;
+//            case "giant":
+//                this.playerHeight = 160.0;
+//                this.playerWidth = 42.0;
+//                break;
+//            default:
+//                throw new IllegalArgumentException("Valid size not given");
+//        }
+//    }
 
     @Override
     public String getImagePath() { //needs to change based on walking direction
@@ -204,9 +204,12 @@ public class Player implements IEntity, IControllable {
         this.YPos = ypos;
     }
 
-    public void setStickmanSize(String stickmanSize){
-        determineSize(stickmanSize);
+    public void setStartXPos(double startXPos){
+        this.startXPos = startXPos;
     }
+//    public void setStickmanSize(String stickmanSize){
+//        determineSize(stickmanSize);
+//    }
 
     @Override
     public boolean jump() {

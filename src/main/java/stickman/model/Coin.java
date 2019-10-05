@@ -8,11 +8,11 @@ public class Coin implements IEntity {
     private double width;
     private Layer layer = Layer.FOREGROUND;
 
-    public Coin(double xpos, double ypos, double height, double width){
-        this.XPos = xpos;
-        this.YPos = ypos;
-        this.height = height;
-        this.width = width;
+    public Coin(){
+//        this.XPos = xpos;
+//        this.YPos = ypos;
+//        this.height = height;
+//        this.width = width;
     }
     @Override
     public String getImagePath() {
@@ -49,6 +49,14 @@ public class Coin implements IEntity {
     }
     public void setWidth(double width){
         this.width = width;
+    }
+
+    public void setXPos(double xpos){
+        this.XPos = xpos;
+    }
+
+    public void setYPos(double ypos){
+        this.YPos = ypos;
     }
 
     @Override

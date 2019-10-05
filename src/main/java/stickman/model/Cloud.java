@@ -13,18 +13,18 @@ public class Cloud implements IEntity {
     private double width;
     private Layer layer = Layer.BACKGROUND;
     private double cloudVelocity;
-
-    /**
-     * Creates a new cloud.
-     * @param xpos The starting X position of the cloud in the Game Window.
-     * @param ypos The starting Y position of the cloud in the Game Window.
-     */
-    public Cloud(double xpos, double ypos, double height, double width){
+//
+//    /**
+//     * Creates a new cloud.
+//     * @param xpos The starting X position of the cloud in the Game Window.
+//     * @param ypos The starting Y position of the cloud in the Game Window.
+//     */
+    public Cloud(){
         //this.imagePath = imagePath;
-        this.XPos = xpos;
-        this.YPos = ypos;
-        this.height = height;
-        this.width = width;
+        //this.XPos = xpos;
+        //this.YPos = ypos;
+        //this.height = height;
+        //this.width = width;
         //this.cloudVelocity = cloudVelocity;
     }
 
@@ -73,6 +73,10 @@ public class Cloud implements IEntity {
      */
     public void setXPos(double xpos){
         this.XPos = xpos;
+    }
+
+    public void setYPos(double ypos){
+        this.YPos = ypos;
     }
 
     /**

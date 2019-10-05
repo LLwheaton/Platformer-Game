@@ -43,6 +43,14 @@ public interface IEntity {
      */
     Layer getLayer();
 
+    void setHeight(double height);
+
+    void setWidth(double width);
+
+    void setXPos(double XPos);
+
+    void setYPos(double YPos);
+
     void update();
 
     void handleCollision(IEntity entity);

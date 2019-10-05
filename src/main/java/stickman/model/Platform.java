@@ -2,18 +2,18 @@ package stickman.model;
 
 public class Platform implements IEntity {
     private String imagePath = "platform.png";
-    private double xpos;
-    private double ypos;
+    private double XPos;
+    private double YPos;
     private double height;
     private double width;
     private Layer layer = Layer.BACKGROUND;
 
-    public Platform(double xpos, double ypos, double height, double width){
+    public Platform(){
         //this.imagePath = imagePath;
-        this.xpos = xpos;
-        this.ypos = ypos;
-        this.height = height;
-        this.width = width;
+//        this.XPos = xpos;
+//        this.YPos = ypos;
+//        this.height = height;
+//        this.width = width;
     }
 
     @Override
@@ -23,12 +23,12 @@ public class Platform implements IEntity {
 
     @Override
     public double getXPos() {
-        return this.xpos;
+        return this.XPos;
     }
 
     @Override
     public double getYPos() {
-        return this.ypos;
+        return this.YPos;
     }
 
     @Override
@@ -51,6 +51,13 @@ public class Platform implements IEntity {
     }
     public void setWidth(double width){
         this.width = width;
+    }
+
+    public void setXPos(double xpos){
+        this.XPos = xpos;
+    }
+    public void setYPos(double ypos){
+        this.YPos = ypos;
     }
 
     @Override

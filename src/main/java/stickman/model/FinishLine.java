@@ -2,17 +2,17 @@ package stickman.model;
 
 public class FinishLine implements IEntity {
     private String imagePath = "chest.png";
-    private double xpos;
-    private double ypos;
+    private double XPos;
+    private double YPos;
     private double height;
     private double width;
     private Layer layer = Layer.BACKGROUND;
 
-    public FinishLine(double xpos, double ypos, double height, double width){
-        this.xpos = xpos;
-        this.ypos = ypos;
-        this.height = height;
-        this.width = width;
+    public FinishLine(){
+        //this.XPos = xpos;
+        //this.YPos = ypos;
+        //this.height = height;
+        //this.width = width;
     }
 
     @Override
@@ -22,12 +22,12 @@ public class FinishLine implements IEntity {
 
     @Override
     public double getXPos() {
-        return this.xpos;
+        return this.XPos;
     }
 
     @Override
     public double getYPos() {
-        return this.ypos;
+        return this.YPos;
     }
 
     @Override
@@ -51,6 +51,13 @@ public class FinishLine implements IEntity {
 
     public void setWidth(double width){
         this.width = width;
+    }
+
+    public void setXPos(double xpos){
+        this.XPos = xpos;
+    }
+    public void setYPos(double ypos){
+        this.YPos = ypos;
     }
 
     @Override

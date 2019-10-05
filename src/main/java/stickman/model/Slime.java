@@ -13,13 +13,13 @@ public class Slime implements IEntity{
 
     private int range = 30;
 
-    public Slime(double xpos, double ypos, double height, double width){
+    public Slime(){
         //this.imagePath = determineImages(type);
         //this.type = type;
-        this.XPos = xpos;
-        this.YPos = ypos - height*.3;
-        this.height = height;
-        this.width = width;
+//        this.XPos = xpos;
+//        this.YPos = ypos - height*.3;
+//        this.height = height;
+//        this.width = width;
     }
 
     @Override
@@ -77,6 +77,13 @@ public class Slime implements IEntity{
 
     public void setVelocity(double velocity){
         this.velocity = velocity;
+    }
+
+    public void setXPos(double xpos){
+        this.XPos = xpos;
+    }
+    public void setYPos(double ypos){
+        this.YPos = ypos-height*.3;
     }
 
     @Override
