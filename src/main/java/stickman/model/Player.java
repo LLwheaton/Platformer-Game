@@ -14,6 +14,7 @@ public class Player implements IEntity, IControllable {
     private String[] imageStandFromRight = {"ch_stand1.png","ch_stand2.png","ch_stand3.png"};
     private String[] imageStandFromLeft = {"ch_stand4.png","ch_stand5.png","ch_stand6.png"};
     private int index = 0;
+    private int numLives;
 
     private double startXPos;
     private double XPos;
@@ -59,31 +60,8 @@ public class Player implements IEntity, IControllable {
 
     }
 
-//    private void determineSize(String size){
-//        switch (size.toLowerCase()){
-//            case "tiny":
-//                this.playerHeight = 40.0;
-//                this.playerWidth = 12.0;
-//                break;
-//            case "normal":
-//                this.playerHeight = 75.0;
-//                this.playerWidth = 20.0;
-//                break;
-//            case "large":
-//                this.playerHeight = 110.0;
-//                this.playerWidth =  30.0;
-//                break;
-//            case "giant":
-//                this.playerHeight = 160.0;
-//                this.playerWidth = 42.0;
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Valid size not given");
-//        }
-//    }
-
     @Override
-    public String getImagePath() { //needs to change based on walking direction
+    public String getImagePath() {
         if(index == 16){
             index = 0;
         }
@@ -211,6 +189,18 @@ public class Player implements IEntity, IControllable {
 //        determineSize(stickmanSize);
 //    }
 
+    public void setNumLives(int numLives){
+        this.numLives = numLives;
+    }
+
+    public void death(){
+        numLives--;
+        if(numLives <= 0){
+            numLives = 0;
+            System.out.println("GAME OVER");
+        }
+    }
+
     @Override
     public boolean jump() {
 
@@ -270,7 +260,7 @@ public class Player implements IEntity, IControllable {
         //System.out.println("Updating??");
         double y = this.YPos;
         if(isMovingRight){
-            System.out.println("xpos:" + this.XPos);
+            //System.out.println("xpos:" + this.XPos);
             this.XPos += velocity;
         }
         if (isMovingLeft) {

@@ -92,6 +92,7 @@ public class GameConfig {
         this.startXPos = (double)stickman.get("x");
         this.stickmanSize = (String)stickman.get("stickmanSize");
         double velocity = (double)stickman.get("velocity");
+        double lives = (double)stickman.get("lives");
         determineSize(this.stickmanSize);
         IEntity player = factory.createEntity("player");
         player.setXPos(this.startXPos);
@@ -100,6 +101,7 @@ public class GameConfig {
         player.setWidth(this.playerWidth);
         Player player2 = (Player)player; //CASTING UGH
         player2.setVelocity(velocity);
+        player2.setNumLives((int)lives);
         entities.add(player);
         return player;
     }

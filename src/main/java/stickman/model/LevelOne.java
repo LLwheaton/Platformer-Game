@@ -58,7 +58,6 @@ public class LevelOne implements Level {
     public void tick() {
         for(IEntity entity : entities){
             entity.update();
-            //Can you refactor here? complicated conditional...?
             if(entity.toString().equals("slime")){
                 if(checkIntersect(player, entity)){
                     if(player.getJumpStrength() < 0){
@@ -66,18 +65,18 @@ public class LevelOne implements Level {
                         break;
                     } else {
                         player.setXPos(player.getStartXPos());
+                        player.death();
                     }
-                    //break; //this actually worked? lol
                 }
             } else if(entity.toString().equals("platform")){
-                if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
-                    player.handleCollision(entity);
-                }
+                handlePlatform(player, entity);
             } else if(entity.toString().equals("coin")){
                 if(checkIntersect(player, entity)){
                     this.entities.remove(entity);
                     break;
                 }
+            } else if(entity.toString().equals("finishline")){
+                handleFinishLine(player, entity);
             }
         }
     }
@@ -88,6 +87,11 @@ public class LevelOne implements Level {
                 ((a.getXPos() + a.getWidth()) > b.getXPos()) &&
                 (a.getYPos() - buffer < (b.getYPos() + b.getHeight())) &&
                 ((a.getYPos() - buffer + a.getHeight()) > b.getYPos());
+    }
+
+    public boolean checkFinish(IEntity a, IEntity b){
+        return (a.getXPos() < (b.getXPos() + b.getWidth())) &&
+                ((a.getXPos() + a.getWidth()) > b.getXPos());
     }
 
     @Override
@@ -120,5 +124,17 @@ public class LevelOne implements Level {
     @Override
     public boolean stopMoving() {
         return player.stopMoving();
+    }
+
+    public void handleFinishLine(IEntity player, IEntity finishLine){
+        if(checkFinish(player, finishLine)){
+            player.setXPos(finishLine.getXPos());
+        }
+    }
+
+    public void handlePlatform(Player player, IEntity platform){
+        if(checkIntersect(player, platform) && player.getJumpStrength() < 0){
+            player.handleCollision(platform);
+        }
     }
 }

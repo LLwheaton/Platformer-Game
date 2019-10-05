@@ -69,4 +69,9 @@ public class FinishLine implements IEntity {
     public void handleCollision(IEntity entity) {
 
     }
+
+    @Override
+    public String toString(){
+        return "finishline";
+    }
 }
