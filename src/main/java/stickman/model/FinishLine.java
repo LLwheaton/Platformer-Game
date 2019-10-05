@@ -45,6 +45,14 @@ public class FinishLine implements IEntity {
         return this.layer;
     }
 
+    public void setHeight(double height){
+        this.height = height;
+    }
+
+    public void setWidth(double width){
+        this.width = width;
+    }
+
     @Override
     public void update() {
 

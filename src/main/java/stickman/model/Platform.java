@@ -1,15 +1,15 @@
 package stickman.model;
 
 public class Platform implements IEntity {
-    private String imagePath;
+    private String imagePath = "platform.png";
     private double xpos;
     private double ypos;
     private double height;
     private double width;
     private Layer layer = Layer.BACKGROUND;
 
-    public Platform(String imagePath, double xpos, double ypos, double height, double width){
-        this.imagePath = imagePath;
+    public Platform(double xpos, double ypos, double height, double width){
+        //this.imagePath = imagePath;
         this.xpos = xpos;
         this.ypos = ypos;
         this.height = height;
@@ -44,6 +44,13 @@ public class Platform implements IEntity {
     @Override
     public Layer getLayer() {
         return this.layer;
+    }
+
+    public void setHeight(double height){
+        this.height = height;
+    }
+    public void setWidth(double width){
+        this.width = width;
     }
 
     @Override

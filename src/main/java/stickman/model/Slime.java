@@ -1,9 +1,10 @@
 package stickman.model;
 
 public class Slime implements IEntity{
-    private String[] imagePath;
+    private String[] imagePath = {"slimeRa.png", "slimeRb.png"};
     private int index = 0;
     private String type;
+    private double velocity;
     private double XPos;
     private double YPos;
     private double height;
@@ -12,9 +13,9 @@ public class Slime implements IEntity{
 
     private int range = 30;
 
-    public Slime(String type, double xpos, double ypos, double height, double width){
-        this.imagePath = determineImages(type);
-        this.type = type;
+    public Slime(double xpos, double ypos, double height, double width){
+        //this.imagePath = determineImages(type);
+        //this.type = type;
         this.XPos = xpos;
         this.YPos = ypos - height*.3;
         this.height = height;
@@ -67,9 +68,23 @@ public class Slime implements IEntity{
         return this.layer;
     }
 
+    public void setHeight(double height){
+        this.height = height;
+    }
+    public void setWidth(double width){
+        this.width = width;
+    }
+
+    public void setVelocity(double velocity){
+        this.velocity = velocity;
+    }
+
     @Override
     public void update(){
-        this.XPos -= 2;
+        this.XPos -= this.velocity;
+        if(XPos < 0){
+            this.XPos = 3500;
+        }
     }
 
     @Override

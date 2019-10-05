@@ -57,12 +57,10 @@ public class GameWindow {
 
     private void draw() {
         model.tick();
-
-        Text text = new Text();
-        text.setText("Lives: 3");
-        text.setX(5);
-        text.setY(20);
-        pane.getChildren().add(text);
+//        double time = 0;
+//        time += 60;
+//        Text text = new Text(5, 20, "Time: " + time);
+//        pane.getChildren().add(text);
 
         List<IEntity> entities = model.getCurrentLevel().getEntities();
 

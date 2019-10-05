@@ -6,7 +6,7 @@ package stickman.model;
  * There can be multiple clouds.
  */
 public class Cloud implements IEntity {
-    private String imagePath;
+    private String imagePath = "cloud_2.png";
     private double XPos;
     private double YPos;
     private double height;
@@ -16,20 +16,16 @@ public class Cloud implements IEntity {
 
     /**
      * Creates a new cloud.
-     * @param imagePath The image for the cloud.
      * @param xpos The starting X position of the cloud in the Game Window.
      * @param ypos The starting Y position of the cloud in the Game Window.
-     * @param height The height of the cloud in pixels.
-     * @param width The width of the cloud in pixels.
-     * @param cloudVelocity The speed of the cloud.
      */
-    public Cloud(String imagePath, double xpos, double ypos, double height, double width, double cloudVelocity){
-        this.imagePath = imagePath;
+    public Cloud(double xpos, double ypos, double height, double width){
+        //this.imagePath = imagePath;
         this.XPos = xpos;
         this.YPos = ypos;
         this.height = height;
         this.width = width;
-        this.cloudVelocity = cloudVelocity;
+        //this.cloudVelocity = cloudVelocity;
     }
 
     @Override
@@ -85,6 +81,14 @@ public class Cloud implements IEntity {
      */
     public void setCloudVelocity(double cloudVelocity){
         this.cloudVelocity = cloudVelocity;
+    }
+
+    public void setHeight(double height){
+        this.height = height;
+    }
+
+    public void setWidth(double width){
+        this.width = width;
     }
 
     //added

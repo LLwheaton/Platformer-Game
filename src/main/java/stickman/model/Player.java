@@ -1,5 +1,7 @@
 package stickman.model;
 
+import javafx.scene.text.Text;
+
 /**
  * Implements Entity interface.
  * Represents an Entity in a level.
@@ -20,6 +22,7 @@ public class Player implements IEntity, IControllable {
     private double playerWidth;
     private Layer layer = Layer.FOREGROUND;
     private double velocity;
+    private String stickmanSize;
 
     private boolean isMovingLeft;
     private boolean isMovingRight;
@@ -40,14 +43,15 @@ public class Player implements IEntity, IControllable {
      * Creates a new player and sets booleans for movement
      * @param xpos The starting X position of the player in the Game Window.
      * @param ypos The starting Y position of the player in the Game Window.
-     * @param stickmanSize The size of stickman as a string.
      */
-    public Player(double xpos, double ypos, String stickmanSize){
-        determineSize(stickmanSize);
+    public Player(double xpos, double ypos, double height, double width){
+
         this.startXPos = xpos;
         this.XPos = xpos;
-        this.YPos = ypos - playerHeight*.45;
-        this.velocity = 2;
+        this.YPos = ypos - height*.45;
+        this.playerHeight = height;
+        this.playerWidth = width;
+        //this.velocity = 2;
         this.isMovingLeft = false;
         this.isMovingRight = false;
         this.isJumping = false;
@@ -200,6 +204,10 @@ public class Player implements IEntity, IControllable {
         this.YPos = ypos;
     }
 
+    public void setStickmanSize(String stickmanSize){
+        determineSize(stickmanSize);
+    }
+
     @Override
     public boolean jump() {
 
@@ -256,13 +264,16 @@ public class Player implements IEntity, IControllable {
 
     @Override //gets called in tick
     public void update(){
+        //System.out.println("Updating??");
         double y = this.YPos;
         if(isMovingRight){
+            System.out.println("xpos:" + this.XPos);
             this.XPos += velocity;
         }
         if (isMovingLeft) {
             this.XPos -= velocity;
             if (this.XPos <= 0) { //Handles left border
+                Text text = new Text(20,20, "Can't go that way");
                 this.XPos = 0;
             }
         }

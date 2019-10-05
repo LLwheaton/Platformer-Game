@@ -73,6 +73,11 @@ public class LevelOne implements Level {
                 if(checkIntersect(player, entity) && player.getJumpStrength() < 0){
                     player.handleCollision(entity);
                 }
+            } else if(entity.toString().equals("coin")){
+                if(checkIntersect(player, entity)){
+                    this.entities.remove(entity);
+                    break;
+                }
             }
         }
     }
