@@ -14,48 +14,47 @@ public class Player implements Entity, Controllable {
     private String[] imageStandFromRight = {"ch_stand1.png","ch_stand2.png","ch_stand3.png"};
     private String[] imageStandFromLeft = {"ch_stand4.png","ch_stand5.png","ch_stand6.png"};
     private int index = 0;
-    private int numLives;
 
     private double startXPos;
     private double XPos;
     private double YPos;
     private double playerHeight;
     private double playerWidth;
-    private Layer layer = Layer.FOREGROUND;
+    private int numLives;
     private double velocity;
+    private Layer layer = Layer.FOREGROUND;
 
     private boolean isMovingLeft;
     private boolean isMovingRight;
     private boolean isJumping;
     private boolean isStopped;
-    private boolean isFacingRight = true;
+    private boolean isFacingRight;
 
-    //private boolean onGround = true;
     private double floorheight = 350;
     private double jumpStrength = 12;
     private double weight = 0.5;
-    //private boolean onPlatform = false;
-    //private boolean onFloor = true;
 
     private boolean win = false;
     private boolean lose = false;
 
-    //boolean canJump = true;
 
-//    /**
-//     * Creates a new player and sets booleans for movement
-//     * @param xpos The starting X position of the player in the Game Window.
-//     * @param ypos The starting Y position of the player in the Game Window.
-//     */
+    /**
+     * Creates a new player and sets booleans for movement.
+     */
     public Player(){
 
         this.isMovingLeft = false;
         this.isMovingRight = false;
         this.isJumping = false;
         this.isStopped = true;
-
+        this.isFacingRight = true;
     }
 
+    /**
+     * Loops through images at a slower pace than tick.
+     * Images change based on which direction Player is facing.
+     * @return
+     */
     @Override
     public String getImagePath() {
         if(index == 16){
@@ -92,8 +91,6 @@ public class Player implements Entity, Controllable {
         return this.XPos;
     }
 
-    public double getStartXPos(){return this.startXPos;}
-
     @Override
     public double getYPos() {
         return this.YPos;
@@ -114,32 +111,48 @@ public class Player implements Entity, Controllable {
         return this.layer;
     }
 
+    @Override
+    public void setXPos(double xpos){
+        this.XPos = xpos;
+    }
+
+    @Override
+    public void setYPos(double ypos){
+        this.YPos = ypos;
+    }
+
+    @Override
+    public void setHeight(double playerHeight){
+        this.playerHeight = playerHeight;
+    }
+
+    @Override
+    public void setWidth(double playerWidth){
+        this.playerWidth = playerWidth;
+    }
+
     /**
-     * Gets the speed of the player
+     * Gets the start X Position of player. This is taken from the
+     * JSON config file.
+     * @return The configured start X Position.
+     */
+    public double getStartXPos(){return this.startXPos;}
+
+    /**
+     * Gets the speed of the player.
      * @return The speed.
      */
     public double getVelocity(){
         return this.velocity;
     }
 
+    /**
+     * Gets the jump strength for the player at the current moment.
+     * @return The current strength of the players jump (can be positive
+     * or negative).
+     */
     public double getJumpStrength(){
         return this.jumpStrength;
-    }
-
-    /**
-     * Sets new height of player.
-     * @param playerHeight The new player height in pixels.
-     */
-    public void setHeight(double playerHeight){
-        this.playerHeight = playerHeight;
-    }
-
-    /**
-     * Sets new width of player.
-     * @param playerWidth The new player width in pixels.
-     */
-    public void setWidth(double playerWidth){
-        this.playerWidth = playerWidth;
     }
 
     /**
@@ -151,31 +164,26 @@ public class Player implements Entity, Controllable {
     }
 
     /**
-     * Changes the X position of the player. This changes when
-     * the player moves across the screen.
-     * @param xpos The current X position of the player.
+     * Sets the players starting X Position. This is given from the JSON
+     * config file.
+     * @param startXPos The given starting X Position for the player.
      */
-    public void setXPos(double xpos){
-        this.XPos = xpos;
-    }
-
-    /**
-     * Changes the Y position of the player. This changes when
-     * the player is jumping.
-     * @param ypos The current Y position of the player.
-     */
-    public void setYPos(double ypos){
-        this.YPos = ypos;
-    }
-
     public void setStartXPos(double startXPos){
         this.startXPos = startXPos;
     }
 
+    /**
+     * Sets the number of lives of the player from the JSON config file.
+     * @param numLives The number of lives a player has for a level.
+     */
     public void setNumLives(int numLives){
         this.numLives = numLives;
     }
 
+    /**
+     * This gets the current number of lives the player has left.
+     * @return The number of lives the player currently has.
+     */
     public int getNumLives(){
         return this.numLives;
     }
@@ -201,7 +209,7 @@ public class Player implements Entity, Controllable {
         isMovingLeft = true;
         return true;
     }
-    /*This can only happen if they are not currently moving right (but mid-jump is ok)*/
+
     @Override
     public boolean moveRight() {
 
@@ -213,9 +221,7 @@ public class Player implements Entity, Controllable {
         isMovingRight = true;
         return true;
     }
-    /* Tells the hero to stop moving left or right.
-     * This can only happen if they are currently moving - mid-jump is ok.
-     * This should not effect the jump itself.*/
+
     @Override
     public boolean stopMoving() {
         if(isStopped){
@@ -243,13 +249,10 @@ public class Player implements Entity, Controllable {
         if (isMovingLeft) {
             this.XPos -= velocity;
             if (this.XPos <= 0) { //Handles left border
-                Text text = new Text(20,20, "Can't go that way");
                 this.XPos = 0;
             }
         }
         if(isJumping){
-            //onGround = false;
-            //onFloor = false;
             y -= jumpStrength;
             jumpStrength -= weight;
             setYPos(y);
@@ -258,8 +261,6 @@ public class Player implements Entity, Controllable {
                 setYPos(y);
                 isJumping = false;
                 jumpStrength = 12;
-                //onGround = true;
-                //onFloor = true;
             }
         } else { //When walking off platform, fall to floor
             jumpStrength = -8;
@@ -271,19 +272,14 @@ public class Player implements Entity, Controllable {
                 setYPos(y);
                 isJumping = false;
                 jumpStrength = 12;
-                //onGround = true;
-                //onFloor = true;
             }
         }
-
     }
 
     @Override
     public void handleCollision(Entity entity){
         this.YPos = entity.getYPos() - playerHeight*.4;
-        isJumping = false; //only allows jump sound
-        //onGround = true;
-        //onFloor = false;
+        isJumping = false;
         jumpStrength = 12;
     }
 
@@ -292,10 +288,18 @@ public class Player implements Entity, Controllable {
         return "player";
     }
 
+    /**
+     * Sets boolean for winning the game.
+     * @param win True if won, false if not.
+     */
     public void setWin(boolean win){
         this.win = win;
     }
 
+    /**
+     * Checks if player has won the game.
+     * @return True if won, false if not.
+     */
     public boolean win(){
         if(win){
             return true;
@@ -303,6 +307,9 @@ public class Player implements Entity, Controllable {
         return false;
     }
 
+    /**
+     * Player loses a life.
+     */
     public void death(){
         numLives--;
         if(numLives <= 0){
@@ -311,6 +318,10 @@ public class Player implements Entity, Controllable {
         }
     }
 
+    /**
+     * Checks if player lost the game.
+     * @return True if lost, false if not.
+     */
     public boolean checkLose(){
         if (lose){
             return true;
