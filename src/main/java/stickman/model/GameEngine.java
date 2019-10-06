@@ -3,8 +3,7 @@ package stickman.model;
 public interface GameEngine {
 
     /**
-     * Gives the view the level that is currently loaded (for stage 1
-     * this will always be the same level.
+     * Gives the view the level that is currently loaded
      * @return The current level.
      */
     Level getCurrentLevel();
