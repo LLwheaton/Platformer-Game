@@ -1,6 +1,6 @@
 package stickman.model;
 
-public class FinishLine implements IEntity {
+public class FinishLine implements Entity {
     private String imagePath = "chest.png";
     private double XPos;
     private double YPos;
@@ -66,7 +66,7 @@ public class FinishLine implements IEntity {
     }
 
     @Override
-    public void handleCollision(IEntity entity) {
+    public void handleCollision(Entity entity) {
 
     }
 

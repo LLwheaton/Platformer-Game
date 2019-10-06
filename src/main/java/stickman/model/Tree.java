@@ -1,6 +1,6 @@
 package stickman.model;
 
-public class Tree implements IEntity{
+public class Tree implements Entity {
     private double XPos;
     private double YPos;
     private double height;
@@ -8,10 +8,7 @@ public class Tree implements IEntity{
     private Layer layer = Layer.BACKGROUND;
 
     public Tree(){
-//        this.xpos = xpos;
-//        this.ypos = ypos;
-//        this.height = height;
-//        this.width = width;
+
     }
 
     @Override
@@ -65,7 +62,7 @@ public class Tree implements IEntity{
     }
 
     @Override
-    public void handleCollision(IEntity entity) {
+    public void handleCollision(Entity entity) {
 
     }
 

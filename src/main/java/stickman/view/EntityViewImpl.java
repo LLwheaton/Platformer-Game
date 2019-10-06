@@ -3,15 +3,15 @@ package stickman.view;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import stickman.model.IEntity;
+import stickman.model.Entity;
 
 public class EntityViewImpl implements EntityView {
-    private IEntity entity;
+    private Entity entity;
     private boolean delete = false;
     private ImageView node;
     private String imagePath;
 
-    EntityViewImpl(IEntity entity) {
+    EntityViewImpl(Entity entity) {
         this.entity = entity;
         this.imagePath = entity.getImagePath();
         this.node = new ImageView(imagePath);
@@ -19,7 +19,7 @@ public class EntityViewImpl implements EntityView {
         update(0);
     }
 
-    private double getViewOrder(IEntity.Layer layer) {
+    private double getViewOrder(Entity.Layer layer) {
         switch (layer) {
             case BACKGROUND: return 100.0;
             case FOREGROUND: return 50.0;
@@ -44,7 +44,7 @@ public class EntityViewImpl implements EntityView {
     }
 
     @Override
-    public boolean matchesEntity(IEntity entity) {
+    public boolean matchesEntity(Entity entity) {
         return this.entity.equals(entity);
     }
 

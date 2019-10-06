@@ -5,7 +5,7 @@ package stickman.model;
  * Creates a cloud in the level.
  * There can be multiple clouds.
  */
-public class Cloud implements IEntity {
+public class Cloud implements Entity {
     private String imagePath = "cloud_2.png";
     private double XPos;
     private double YPos;
@@ -102,7 +102,7 @@ public class Cloud implements IEntity {
     }
 
     @Override
-    public void handleCollision(IEntity entity){
+    public void handleCollision(Entity entity){
 
     }
 

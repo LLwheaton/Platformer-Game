@@ -1,6 +1,6 @@
 package stickman.model;
 
-public class Slime implements IEntity{
+public class Slime implements Entity {
     private String[] imagePath = {"slimeRa.png", "slimeRb.png"};
     private int index = 0;
     private String type;
@@ -10,16 +10,9 @@ public class Slime implements IEntity{
     private double height;
     private double width;
     private Layer layer = Layer.FOREGROUND;
-
-    private int range = 30;
+    private double startXPos;
 
     public Slime(){
-        //this.imagePath = determineImages(type);
-        //this.type = type;
-//        this.XPos = xpos;
-//        this.YPos = ypos - height*.3;
-//        this.height = height;
-//        this.width = width;
     }
 
     @Override
@@ -71,6 +64,7 @@ public class Slime implements IEntity{
     public void setHeight(double height){
         this.height = height;
     }
+
     public void setWidth(double width){
         this.width = width;
     }
@@ -81,6 +75,10 @@ public class Slime implements IEntity{
 
     public void setXPos(double xpos){
         this.XPos = xpos;
+    }
+
+    public void setStartXPos(double startXPos){
+        this.startXPos = startXPos;
     }
     public void setYPos(double ypos){
         this.YPos = ypos;
@@ -95,8 +93,8 @@ public class Slime implements IEntity{
     }
 
     @Override
-    public void handleCollision(IEntity entity){
-
+    public void handleCollision(Entity entity){
+        this.XPos = startXPos;
     }
 
     @Override

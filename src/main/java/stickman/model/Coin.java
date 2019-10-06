@@ -1,6 +1,6 @@
 package stickman.model;
 
-public class Coin implements IEntity {
+public class Coin implements Entity {
     private String imagePath = "coin.png";
     private double XPos;
     private double YPos;
@@ -65,7 +65,7 @@ public class Coin implements IEntity {
     }
 
     @Override
-    public void handleCollision(IEntity entity) {
+    public void handleCollision(Entity entity) {
 
     }
     @Override

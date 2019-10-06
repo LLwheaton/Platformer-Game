@@ -19,8 +19,8 @@ public class GameConfig {
     private double cloudVelocity;
     private double finishLine;
 
-    private List<IEntity> entities = new ArrayList<>();
-    private IEntity player;
+    private List<Entity> entities = new ArrayList<>();
+    private Entity player;
     private Level levelone;
     private double floorHeight = 350;
 
@@ -50,7 +50,7 @@ public class GameConfig {
             JSONObject file = (JSONObject)obj;
 
             createFinishLine(file);
-            IEntity player = createStickMan(file);
+            Entity player = createStickMan(file);
             createClouds(file);
             createPlatforms(file);
             createTrees(file);
@@ -67,7 +67,7 @@ public class GameConfig {
     }
 
     private void createLevel(Player player){
-        Level levelone = new LevelOne(600,380, player, this.entities);
+        Level levelone = new LevelImpl(600,380, player, this.entities);
         this.levelone = levelone;
     }
 
@@ -78,7 +78,7 @@ public class GameConfig {
     private void createFinishLine(JSONObject file){
 
         this.finishLine = (double)file.get("finishLine");
-        IEntity finishLine = new FinishLine();
+        Entity finishLine = new FinishLine();
         finishLine.setXPos(this.finishLine);
         finishLine.setYPos(333);
         finishLine.setHeight(20);
@@ -86,7 +86,7 @@ public class GameConfig {
         entities.add(finishLine);
     }
 
-    private IEntity createStickMan(JSONObject file){
+    private Entity createStickMan(JSONObject file){
         //Stickman
         JSONObject stickman = (JSONObject)file.get("stickman");
         this.startXPos = (double)stickman.get("x");
@@ -94,7 +94,7 @@ public class GameConfig {
         double velocity = (double)stickman.get("velocity");
         double lives = (double)stickman.get("lives");
         determineSize(this.stickmanSize);
-        IEntity player = factory.createEntity("player");
+        Entity player = factory.createEntity("player");
         player.setXPos(this.startXPos);
         player.setYPos(floorHeight);
         player.setHeight(this.playerHeight);
@@ -117,7 +117,7 @@ public class GameConfig {
             double x = (double)pos.get("x");
             double y = (double)pos.get("y");
             double cloudVelocity = (double)pos.get("velocity");
-            IEntity cloud = factory.createEntity("cloud");
+            Entity cloud = factory.createEntity("cloud");
             cloud.setXPos(x);
             cloud.setYPos(y);
             cloud.setHeight(50.0);
@@ -137,7 +137,7 @@ public class GameConfig {
             JSONObject pos = (JSONObject)platformPositions.get(i);
             double x = (double)pos.get("x");
             double y = (double)pos.get("y");
-            IEntity platform = factory.createEntity("platform");
+            Entity platform = factory.createEntity("platform");
             platform.setXPos(x);
             platform.setYPos(y);
             platform.setHeight(70.0);
@@ -155,7 +155,7 @@ public class GameConfig {
             JSONObject pos = (JSONObject)treePositions.get(i);
             double x = (double)pos.get("x");
             double y = (double)pos.get("y");
-            IEntity tree = factory.createEntity("tree");
+            Entity tree = factory.createEntity("tree");
             tree.setXPos(x);
             tree.setYPos(y);
             tree.setHeight(100.0);
@@ -174,13 +174,14 @@ public class GameConfig {
             double x = (double)pos.get("x");
             double y = (double)pos.get("y");
             double enemyVelocity = (double)pos.get("velocity");
-            IEntity slime = factory.createEntity("slime");
+            Entity slime = factory.createEntity("slime");
             slime.setXPos(x);
             slime.setYPos(y);
             slime.setHeight(30.0);
             slime.setWidth(30.0);
             Slime slime2 = (Slime)slime;
             slime2.setVelocity(enemyVelocity);
+            slime2.setStartXPos(x);
             entities.add(slime);
         }
     }
@@ -194,7 +195,7 @@ public class GameConfig {
             JSONObject pos = (JSONObject)coinPositions.get(i);
             double x = (double)pos.get("x");
             double y = (double)pos.get("y");
-            IEntity coin = factory.createEntity("coin");
+            Entity coin = factory.createEntity("coin");
             coin.setXPos(x);
             coin.setYPos(y);
             coin.setHeight(20.0);

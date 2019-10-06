@@ -1,6 +1,6 @@
 package stickman.model;
 
-public interface IControllable {
+public interface Controllable {
     boolean jump();
     boolean moveLeft();
     boolean moveRight();

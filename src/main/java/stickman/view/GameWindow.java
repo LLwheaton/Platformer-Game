@@ -4,9 +4,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
-import stickman.model.IEntity;
+import stickman.model.Entity;
 import stickman.model.GameEngine;
 
 import java.util.ArrayList;
@@ -23,11 +22,15 @@ public class GameWindow {
     private double xViewportOffset = 0.0;
     private static final double VIEWPORT_MARGIN = 280.0;
 
+    public static Pane originalPane;
+
     public GameWindow(GameEngine model, int width, int height) {
         this.model = model;
         this.pane = new Pane();
         this.width = width;
         this.scene = new Scene(pane, width, height);
+
+        originalPane = this.pane;
 
         this.entityViews = new ArrayList<>();
 
@@ -43,6 +46,10 @@ public class GameWindow {
         backgroundDrawer.draw(model, pane);
     }
 
+    public static Pane getPane(){
+        return originalPane;
+    }
+
     public Scene getScene() {
         return this.scene;
     }
@@ -53,16 +60,13 @@ public class GameWindow {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
     }
 
     private void draw() {
         model.tick();
-//        double time = 0;
-//        time += 60;
-//        Text text = new Text(5, 20, "Time: " + time);
-//        pane.getChildren().add(text);
 
-        List<IEntity> entities = model.getCurrentLevel().getEntities();
+        List<Entity> entities = model.getCurrentLevel().getEntities();
 
         for (EntityView entityView: entityViews) {
             entityView.markForDelete();
@@ -97,8 +101,8 @@ public class GameWindow {
         backgroundDrawer.update(xViewportOffset);
     }
 
-    public void handleEntityViews(List<IEntity> entities){
-        for (IEntity entity: entities) {
+    public void handleEntityViews(List<Entity> entities){
+        for (Entity entity: entities) {
             boolean notFound = true;
             for (EntityView view: entityViews) {
                 if (view.matchesEntity(entity)) {

@@ -2,7 +2,7 @@ package stickman.model;
 
 public class EntityFactory {
 
-    public IEntity createEntity(String type) {
+    public Entity createEntity(String type) {
         switch (type.toLowerCase()){
             case "player": return new Player();
             case "cloud": return new Cloud();

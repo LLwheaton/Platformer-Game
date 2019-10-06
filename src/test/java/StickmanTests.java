@@ -1,7 +1,4 @@
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import stickman.App;
 import stickman.model.*;
 
 import static org.junit.Assert.assertEquals;
@@ -47,8 +44,8 @@ public class StickmanTests {
     @Test
     public void cloudLayerTest(){
         Cloud cloud = new Cloud();
-        IEntity.Layer layer = cloud.getLayer();
-        assertEquals(IEntity.Layer.BACKGROUND, layer);
+        Entity.Layer layer = cloud.getLayer();
+        assertEquals(Entity.Layer.BACKGROUND, layer);
     }
     @Test
     public void cloudUpdateTest(){
@@ -104,8 +101,8 @@ public class StickmanTests {
     @Test
     public void playerLayerTest(){
         Player player = new Player();
-        IEntity.Layer layer = player.getLayer();
-        assertEquals(IEntity.Layer.FOREGROUND, layer);
+        Entity.Layer layer = player.getLayer();
+        assertEquals(Entity.Layer.FOREGROUND, layer);
     }
     @Test
     public void playerCollisionTest(){
@@ -210,8 +207,8 @@ public class StickmanTests {
     @Test
     public void coinLayerTest(){
         Coin coin = new Coin();
-        IEntity.Layer layer = coin.getLayer();
-        assertEquals(IEntity.Layer.FOREGROUND, layer);
+        Entity.Layer layer = coin.getLayer();
+        assertEquals(Entity.Layer.FOREGROUND, layer);
     }
     @Test
     public void coinUpdateTest(){
@@ -262,8 +259,8 @@ public class StickmanTests {
     @Test
     public void finishLineLayerTest(){
         FinishLine fl = new FinishLine();
-        IEntity.Layer layer = fl.getLayer();
-        assertEquals(IEntity.Layer.FOREGROUND, layer);
+        Entity.Layer layer = fl.getLayer();
+        assertEquals(Entity.Layer.FOREGROUND, layer);
     }
     @Test
     public void finishLineUpdateTest(){
@@ -286,43 +283,43 @@ public class StickmanTests {
     @Test
     public void factorySlimeTest(){
         EntityFactory f = new EntityFactory();
-        IEntity entity = f.createEntity("slime");
+        Entity entity = f.createEntity("slime");
         assertEquals("slime", entity.toString());
     }
     @Test
     public void factoryPlayerTest(){
         EntityFactory f = new EntityFactory();
-        IEntity entity = f.createEntity("player");
+        Entity entity = f.createEntity("player");
         assertEquals("player", entity.toString());
     }
     @Test
     public void factoryCloudTest(){
         EntityFactory f = new EntityFactory();
-        IEntity entity = f.createEntity("cloud");
+        Entity entity = f.createEntity("cloud");
         assertEquals("cloud", entity.toString());
     }
     @Test
     public void factoryCoinTest(){
         EntityFactory f = new EntityFactory();
-        IEntity entity = f.createEntity("coin");
+        Entity entity = f.createEntity("coin");
         assertEquals("coin", entity.toString());
     }
     @Test
     public void factoryPlatformTest(){
         EntityFactory f = new EntityFactory();
-        IEntity entity = f.createEntity("platform");
+        Entity entity = f.createEntity("platform");
         assertEquals("platform", entity.toString());
     }
     @Test
     public void factoryTreeTest(){
         EntityFactory f = new EntityFactory();
-        IEntity entity = f.createEntity("tree");
+        Entity entity = f.createEntity("tree");
         assertEquals("tree", entity.toString());
     }
     @Test(expected = IllegalArgumentException.class)
     public void factoryInvalidTypeTest(){
         EntityFactory f = new EntityFactory();
-        IEntity entity = f.createEntity("something");
+        Entity entity = f.createEntity("something");
     }
 
     //GameConfig testing//////////////////////////////////////////////////
@@ -405,8 +402,8 @@ public class StickmanTests {
     @Test
     public void platformLayerTest(){
         Platform p = new Platform();
-        IEntity.Layer layer = p.getLayer();
-        assertEquals(IEntity.Layer.FOREGROUND, layer);
+        Entity.Layer layer = p.getLayer();
+        assertEquals(Entity.Layer.FOREGROUND, layer);
     }
     @Test
     public void PlatformUpdateTest(){
@@ -457,8 +454,8 @@ public class StickmanTests {
     @Test
     public void slimeLayerTest(){
         Slime slime = new Slime();
-        IEntity.Layer layer = slime.getLayer();
-        assertEquals(IEntity.Layer.FOREGROUND, layer);
+        Entity.Layer layer = slime.getLayer();
+        assertEquals(Entity.Layer.FOREGROUND, layer);
     }
     @Test
     public void slimeUpdateTest(){
@@ -522,8 +519,8 @@ public class StickmanTests {
     @Test
     public void treeLayerTest(){
         Tree tree = new Tree();
-        IEntity.Layer layer = tree.getLayer();
-        assertEquals(IEntity.Layer.BACKGROUND, layer);
+        Entity.Layer layer = tree.getLayer();
+        assertEquals(Entity.Layer.BACKGROUND, layer);
     }
     @Test
     public void treeUpdateTest(){

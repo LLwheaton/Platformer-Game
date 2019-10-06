@@ -1,6 +1,6 @@
 package stickman.model;
 
-public interface IEntity {
+public interface Entity {
 
     /**
      * Tells the view the image path for the entity at the current
@@ -53,7 +53,7 @@ public interface IEntity {
 
     void update();
 
-    void handleCollision(IEntity entity);
+    void handleCollision(Entity entity);
 
     enum Layer{
         BACKGROUND, FOREGROUND, EFFECT

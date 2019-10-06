@@ -1,8 +1,6 @@
 package stickman;
 
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import stickman.model.GameEngine;
 import stickman.model.GameEngineImpl;
@@ -11,10 +9,6 @@ import stickman.view.GameWindow;
 import java.util.Map;
 
 public class App extends Application {
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -28,7 +22,6 @@ public class App extends Application {
 
         GameEngine model = new GameEngineImpl("src\\main\\resources\\default.json");
         GameWindow window = new GameWindow(model, 640, 400);
-        //window.run();
 
         primaryStage.setTitle("Stickman");
         primaryStage.setScene(window.getScene());

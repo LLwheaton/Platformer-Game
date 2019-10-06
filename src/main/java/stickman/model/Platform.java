@@ -1,12 +1,12 @@
 package stickman.model;
 
-public class Platform implements IEntity {
+public class Platform implements Entity {
     private String imagePath = "platform.png";
     private double XPos;
     private double YPos;
     private double height;
     private double width;
-    private Layer layer = Layer.FOREGROUND;
+    private Layer layer = Layer.BACKGROUND;
 
     public Platform(){
         //this.imagePath = imagePath;
@@ -65,7 +65,7 @@ public class Platform implements IEntity {
 
     }
     @Override
-    public void handleCollision(IEntity entity){
+    public void handleCollision(Entity entity){
 
     }
 

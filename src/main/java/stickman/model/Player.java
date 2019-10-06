@@ -7,7 +7,7 @@ import javafx.scene.text.Text;
  * Represents an Entity in a level.
  * There can only be one player.
  */
-public class Player implements IEntity, IControllable {
+public class Player implements Entity, Controllable {
     private String imagePath = "ch_stand1.png";
     private String[] imageGoingRight = {"ch_walk1.png","ch_walk2.png","ch_walk3.png","ch_walk4.png", "ch_walk3.png","ch_walk2.png"};
     private String[] imageGoingLeft = {"ch_walk5.png","ch_walk6.png","ch_walk7.png","ch_walk8.png","ch_walk7.png"};
@@ -23,7 +23,6 @@ public class Player implements IEntity, IControllable {
     private double playerWidth;
     private Layer layer = Layer.FOREGROUND;
     private double velocity;
-    private String stickmanSize;
 
     private boolean isMovingLeft;
     private boolean isMovingRight;
@@ -31,12 +30,15 @@ public class Player implements IEntity, IControllable {
     private boolean isStopped;
     private boolean isFacingRight = true;
 
-    private boolean onGround = true;
+    //private boolean onGround = true;
     private double floorheight = 350;
     private double jumpStrength = 12;
     private double weight = 0.5;
-    private boolean onPlatform = false;
-    private boolean onFloor = true;
+    //private boolean onPlatform = false;
+    //private boolean onFloor = true;
+
+    private boolean win = false;
+    private boolean lose = false;
 
     //boolean canJump = true;
 
@@ -47,12 +49,6 @@ public class Player implements IEntity, IControllable {
 //     */
     public Player(){
 
-//        this.startXPos = xpos;
-//        this.XPos = xpos;
-//        this.YPos = ypos - height*.45;
-//        this.playerHeight = height;
-//        this.playerWidth = width;
-        //this.velocity = 2;
         this.isMovingLeft = false;
         this.isMovingRight = false;
         this.isJumping = false;
@@ -138,16 +134,6 @@ public class Player implements IEntity, IControllable {
         this.playerHeight = playerHeight;
     }
 
-//    public void setOnPlatform(boolean isOnPlatform){
-//        this.onPlatform = isOnPlatform;
-//    }
-
-//    public void setJumpStrength(double jumpStrength){
-//        this.jumpStrength = jumpStrength;
-//    }
-//    public void setOnGround(boolean onGround){
-//        this.onGround = onGround;
-//    }
     /**
      * Sets new width of player.
      * @param playerWidth The new player width in pixels.
@@ -185,20 +171,13 @@ public class Player implements IEntity, IControllable {
     public void setStartXPos(double startXPos){
         this.startXPos = startXPos;
     }
-//    public void setStickmanSize(String stickmanSize){
-//        determineSize(stickmanSize);
-//    }
 
     public void setNumLives(int numLives){
         this.numLives = numLives;
     }
 
-    public void death(){
-        numLives--;
-        if(numLives <= 0){
-            numLives = 0;
-            System.out.println("GAME OVER");
-        }
+    public int getNumLives(){
+        return this.numLives;
     }
 
     @Override
@@ -257,10 +236,8 @@ public class Player implements IEntity, IControllable {
 
     @Override //gets called in tick
     public void update(){
-        //System.out.println("Updating??");
         double y = this.YPos;
         if(isMovingRight){
-            //System.out.println("xpos:" + this.XPos);
             this.XPos += velocity;
         }
         if (isMovingLeft) {
@@ -271,8 +248,8 @@ public class Player implements IEntity, IControllable {
             }
         }
         if(isJumping){
-            onGround = false;
-            onFloor = false;
+            //onGround = false;
+            //onFloor = false;
             y -= jumpStrength;
             jumpStrength -= weight;
             setYPos(y);
@@ -281,8 +258,9 @@ public class Player implements IEntity, IControllable {
                 setYPos(y);
                 isJumping = false;
                 jumpStrength = 12;
-                onGround = true;
-                onFloor = true;            }
+                //onGround = true;
+                //onFloor = true;
+            }
         } else { //When walking off platform, fall to floor
             jumpStrength = -8;
             y -= jumpStrength;
@@ -293,19 +271,19 @@ public class Player implements IEntity, IControllable {
                 setYPos(y);
                 isJumping = false;
                 jumpStrength = 12;
-                onGround = true;
-                onFloor = true;
+                //onGround = true;
+                //onFloor = true;
             }
         }
 
     }
 
     @Override
-    public void handleCollision(IEntity entity){
+    public void handleCollision(Entity entity){
         this.YPos = entity.getYPos() - playerHeight*.4;
         isJumping = false; //only allows jump sound
-        onGround = true;
-        onFloor = false;
+        //onGround = true;
+        //onFloor = false;
         jumpStrength = 12;
     }
 
@@ -313,4 +291,31 @@ public class Player implements IEntity, IControllable {
     public String toString(){
         return "player";
     }
+
+    public void setWin(boolean win){
+        this.win = win;
+    }
+
+    public boolean win(){
+        if(win){
+            return true;
+        }
+        return false;
+    }
+
+    public void death(){
+        numLives--;
+        if(numLives <= 0){
+            numLives = 0;
+            lose = true;
+        }
+    }
+
+    public boolean checkLose(){
+        if (lose){
+            return true;
+        }
+        return false;
+    }
 }
+

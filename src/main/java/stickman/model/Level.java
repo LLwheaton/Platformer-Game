@@ -8,7 +8,7 @@ public interface Level {
      * Tells the view what entities it should be drawing right now.
      * @return List of current entities for this level.
      */
-    List<IEntity> getEntities();
+    List<Entity> getEntities();
 
     /**
      * The height of the level (not necessarily the height of the view)
