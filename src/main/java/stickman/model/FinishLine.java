@@ -9,10 +9,7 @@ public class FinishLine implements Entity {
     private Layer layer = Layer.FOREGROUND;
 
     public FinishLine(){
-        //this.XPos = xpos;
-        //this.YPos = ypos;
-        //this.height = height;
-        //this.width = width;
+
     }
 
     @Override
@@ -45,20 +42,27 @@ public class FinishLine implements Entity {
         return this.layer;
     }
 
+    @Override
+    public void setXPos(double xpos){
+        this.XPos = xpos;
+    }
+
+    @Override
+    public void setYPos(double ypos){
+        this.YPos = ypos;
+    }
+
+    @Override
     public void setHeight(double height){
         this.height = height;
     }
 
+    @Override
     public void setWidth(double width){
         this.width = width;
     }
 
-    public void setXPos(double xpos){
-        this.XPos = xpos;
-    }
-    public void setYPos(double ypos){
-        this.YPos = ypos;
-    }
+
 
     @Override
     public void update() {
