@@ -13,19 +13,12 @@ public class Cloud implements Entity {
     private double width;
     private Layer layer = Layer.BACKGROUND;
     private double cloudVelocity;
-//
-//    /**
-//     * Creates a new cloud.
-//     * @param xpos The starting X position of the cloud in the Game Window.
-//     * @param ypos The starting Y position of the cloud in the Game Window.
-//     */
+
+    /**
+     * Creates a new cloud.
+     */
     public Cloud(){
-        //this.imagePath = imagePath;
-        //this.XPos = xpos;
-        //this.YPos = ypos;
-        //this.height = height;
-        //this.width = width;
-        //this.cloudVelocity = cloudVelocity;
+
     }
 
     @Override
@@ -58,6 +51,16 @@ public class Cloud implements Entity {
         return this.layer;
     }
 
+    @Override
+    public void update(){
+        setXPos(getXPos() - (getCloudVelocity()/60));
+    }
+
+    @Override
+    public void handleCollision(Entity entity){
+
+    }
+
     /**
      * Gets the clouds speed in the level.
      * @return The clouds speed.
@@ -87,28 +90,24 @@ public class Cloud implements Entity {
         this.cloudVelocity = cloudVelocity;
     }
 
+    /**
+     * Changes the clouds height.
+     * @param height The new height in pixels.
+     */
     public void setHeight(double height){
         this.height = height;
     }
 
+    /**
+     * Changes the clouds width.
+     * @param width The new height in pixels.
+     */
     public void setWidth(double width){
         this.width = width;
-    }
-
-    //added
-    @Override
-    public void update(){
-        setXPos(getXPos() - (getCloudVelocity()/60));
-    }
-
-    @Override
-    public void handleCollision(Entity entity){
-
     }
 
     @Override
     public String toString(){
         return "cloud";
     }
-
 }
