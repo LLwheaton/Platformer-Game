@@ -9,11 +9,9 @@ public class Coin implements Entity {
     private Layer layer = Layer.FOREGROUND;
 
     public Coin(){
-//        this.XPos = xpos;
-//        this.YPos = ypos;
-//        this.height = height;
-//        this.width = width;
+
     }
+
     @Override
     public String getImagePath() {
         return imagePath;
@@ -44,21 +42,6 @@ public class Coin implements Entity {
         return this.layer;
     }
 
-    public void setHeight(double height){
-        this.height = height;
-    }
-    public void setWidth(double width){
-        this.width = width;
-    }
-
-    public void setXPos(double xpos){
-        this.XPos = xpos;
-    }
-
-    public void setYPos(double ypos){
-        this.YPos = ypos;
-    }
-
     @Override
     public void update() {
 
@@ -68,6 +51,40 @@ public class Coin implements Entity {
     public void handleCollision(Entity entity) {
 
     }
+
+    /**
+     * Changes the coins height.
+     * @param height The new height in pixels.
+     */
+    public void setHeight(double height){
+        this.height = height;
+    }
+
+    /**
+     * Changes the coins width.
+     * @param width The new height in pixels.
+     */
+    public void setWidth(double width){
+        this.width = width;
+    }
+
+    /**
+     * Changes the coins X Position.
+     * @param xpos The new X Position of the coin.
+     */
+    public void setXPos(double xpos){
+        this.XPos = xpos;
+    }
+
+    /**
+     * Changes the coins Y Position.
+     * @param ypos The new Y Position of the coin.
+     */
+    public void setYPos(double ypos){
+        this.YPos = ypos;
+    }
+
+
     @Override
     public String toString(){
         return "coin";
