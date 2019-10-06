@@ -1,6 +1,5 @@
 package stickman.model;
 
-
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import stickman.view.GameWindow;
@@ -9,9 +8,6 @@ import java.util.List;
 
 /**
  * Implements the Level interface.
- * This is the current and only level for stage one.
- * All entities are created in this class.
- * Movement of player and tick functions are implemented here.
  */
 public class LevelImpl implements Level {
     private double height;
@@ -19,9 +15,8 @@ public class LevelImpl implements Level {
     private Player player;
     private List<Entity> entities;
 
-
     /**
-     * Creates the level and sets player and cloud parameters.
+     * Creates the level and sets player and entities parameters.
      * @param width The width of the level in pixels.
      * @param height The height of the level in pixels.
      * @param player The player being used in the level.
@@ -34,10 +29,6 @@ public class LevelImpl implements Level {
         this.player = player;
     }
 
-    /**
-     * Creates array list and adds all created entities to list.
-     * @return The list with all created entities.
-     */
     @Override
     public List<Entity> getEntities() {
         return this.entities;
@@ -54,8 +45,7 @@ public class LevelImpl implements Level {
     }
 
     /**
-     * Sets the clouds speed.
-     * Handles player movement.
+     * Checks and handles collisions for player and type.
      */
     @Override
     public void tick() {
@@ -99,32 +89,6 @@ public class LevelImpl implements Level {
         }
     }
 
-    public boolean checkIntersect(Entity a, Entity b){
-        double buffer = a.getHeight()*.45;
-        return (a.getXPos() < (b.getXPos() + b.getWidth())) &&
-                ((a.getXPos() + a.getWidth()) > b.getXPos()) &&
-                (a.getYPos() - buffer < (b.getYPos() + b.getHeight())) &&
-                ((a.getYPos() - buffer + a.getHeight()) > b.getYPos());
-    }
-
-    public boolean checkFinish(Entity a, Entity b){
-        return (a.getXPos() < (b.getXPos() + b.getWidth())) &&
-                ((a.getXPos() + a.getWidth()) > b.getXPos());
-    }
-
-    public void winScreen(){
-
-        Text text = new Text( 150,200, "YOU WIN");
-        text.setFont(new Font(80));
-        GameWindow.getPane().getChildren().add(text);
-    }
-
-    public void loseScreen(){
-        Text text = new Text( 150,200, "YOU LOSE");
-        text.setFont(new Font(80));
-        GameWindow.getPane().getChildren().add(text);
-    }
-
     @Override
     public double getFloorHeight() {
         return this.height - 30;
@@ -157,9 +121,59 @@ public class LevelImpl implements Level {
         return player.stopMoving();
     }
 
+    /**
+     * Checks if there is a collision between player and platform, and handles it.
+     * @param player The current player.
+     * @param platform The platform being checked for collision.
+     */
     public void handlePlatform(Player player, Entity platform){
         if(checkIntersect(player, platform) && player.getJumpStrength() < 0){
             player.handleCollision(platform);
         }
+    }
+
+    /**
+     * Checks if there is a collision between two entities.
+     * @param a The first Entity.
+     * @param b The second Entity.
+     * @return True if there is a collision, else false.
+     */
+    public boolean checkIntersect(Entity a, Entity b){
+        double buffer = a.getHeight()*.45;
+        return (a.getXPos() < (b.getXPos() + b.getWidth())) &&
+                ((a.getXPos() + a.getWidth()) > b.getXPos()) &&
+                (a.getYPos() - buffer < (b.getYPos() + b.getHeight())) &&
+                ((a.getYPos() - buffer + a.getHeight()) > b.getYPos());
+    }
+
+    /**
+     * Checks if two entities have collided vertically.
+     * This is meant for when the Player crosses the Finish Line.
+     * @param a The first Entity (Meant to be Player).
+     * @param b The second Entity (Meand to be FinishLine).
+     * @return True if there is a collision, else false.
+     */
+    public boolean checkFinish(Entity a, Entity b){
+        return (a.getXPos() < (b.getXPos() + b.getWidth())) &&
+                ((a.getXPos() + a.getWidth()) > b.getXPos());
+    }
+
+    /**
+     * Shows win on screen.
+     */
+    public void winScreen(){
+
+        Text text = new Text( 150,200, "YOU WIN");
+        text.setFont(new Font(80));
+        GameWindow.getPane().getChildren().add(text);
+    }
+
+    /**
+     * Shows loss on screen.
+     */
+    public void loseScreen(){
+        Text text = new Text( 150,200, "YOU LOSE");
+        text.setFont(new Font(80));
+        GameWindow.getPane().getChildren().add(text);
     }
 }
