@@ -108,14 +108,12 @@ public class LevelImpl implements Level {
     public boolean moveLeft() {
         return player.moveLeft();
     }
-    /*This can only happen if they are not currently moving right (but mid-jump is ok)*/
+
     @Override
     public boolean moveRight() {
         return player.moveRight();
     }
-    /* Tells the hero to stop moving left or right.
-     * This can only happen if they are currently moving - mid-jump is ok.
-     * This should not effect the jump itself.*/
+
     @Override
     public boolean stopMoving() {
         return player.stopMoving();
