@@ -43,16 +43,39 @@ public interface Entity {
      */
     Layer getLayer();
 
+    /**
+     * Sets new height of entity.
+     * @param height The new entity height in pixels.
+     */
     void setHeight(double height);
 
+    /**
+     * Sets new width of entity.
+     * @param width The new entity width in pixels.
+     */
     void setWidth(double width);
 
+    /**
+     * Changes the X position of the entity.
+     * @param XPos The current X position of the entity.
+     */
     void setXPos(double XPos);
 
+    /**
+     * Changes the Y position of the entity.
+     * @param YPos The current Y position of the entity.
+     */
     void setYPos(double YPos);
 
+    /**
+     * Called within tick(), handles any entity actions.
+     */
     void update();
 
+    /**
+     * Handles a collision between the entity and another entity.
+     * @param entity The entity this one collided with.
+     */
     void handleCollision(Entity entity);
 
     enum Layer{
