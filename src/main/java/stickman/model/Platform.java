@@ -9,11 +9,7 @@ public class Platform implements Entity {
     private Layer layer = Layer.BACKGROUND;
 
     public Platform(){
-        //this.imagePath = imagePath;
-//        this.XPos = xpos;
-//        this.YPos = ypos;
-//        this.height = height;
-//        this.width = width;
+
     }
 
     @Override
@@ -46,18 +42,24 @@ public class Platform implements Entity {
         return this.layer;
     }
 
-    public void setHeight(double height){
-        this.height = height;
-    }
-    public void setWidth(double width){
-        this.width = width;
-    }
-
+    @Override
     public void setXPos(double xpos){
         this.XPos = xpos;
     }
+
+    @Override
     public void setYPos(double ypos){
         this.YPos = ypos;
+    }
+
+    @Override
+    public void setHeight(double height){
+        this.height = height;
+    }
+
+    @Override
+    public void setWidth(double width){
+        this.width = width;
     }
 
     @Override
