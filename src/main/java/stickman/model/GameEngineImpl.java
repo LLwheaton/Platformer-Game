@@ -8,6 +8,8 @@ public class GameEngineImpl implements stickman.model.GameEngine{
 
     /**
      * Creates new GameEngine with the json config file.
+     * Initialises GameConfig and passes JSON file to be parsed.
+     * Sets current level to level created in GameConfig.
      * @param filename The json config file path
      */
     public GameEngineImpl(String filename){
@@ -15,18 +17,16 @@ public class GameEngineImpl implements stickman.model.GameEngine{
         this.levelone = gc.getCurrentLevel();
     }
 
-    /**
-     * Gets current level
-     * @return The level created and being used for stage one.
-     */
     @Override
     public Level getCurrentLevel(){
         return this.levelone;
     }
+
     @Override
     public void startLevel(){
 
     }
+
     @Override
     public boolean jump(){
         if(getCurrentLevel().jump()){
@@ -34,6 +34,7 @@ public class GameEngineImpl implements stickman.model.GameEngine{
         }
         return false;
     }
+
     @Override
     public boolean moveLeft(){
         if(getCurrentLevel().moveLeft()){
@@ -41,6 +42,7 @@ public class GameEngineImpl implements stickman.model.GameEngine{
         }
         return false;
     }
+
     @Override
     public boolean moveRight(){
         if(getCurrentLevel().moveRight()){
@@ -48,6 +50,7 @@ public class GameEngineImpl implements stickman.model.GameEngine{
         }
         return false;
     }
+
     @Override
     public boolean stopMoving(){
         if(getCurrentLevel().stopMoving()){
@@ -55,6 +58,7 @@ public class GameEngineImpl implements stickman.model.GameEngine{
         }
         return false;
     }
+
     @Override
     public void tick(){
         getCurrentLevel().tick();
