@@ -78,16 +78,12 @@ public class Cloud implements Entity {
         this.XPos = xpos;
     }
 
+    /**
+     * Changes the clouds Y position.
+     * @param ypos The given Y position of the cloud.
+     */
     public void setYPos(double ypos){
         this.YPos = ypos;
-    }
-
-    /**
-     * Changes the clouds speed.
-     * @param cloudVelocity The new speed the cloud should move.
-     */
-    public void setCloudVelocity(double cloudVelocity){
-        this.cloudVelocity = cloudVelocity;
     }
 
     /**
@@ -104,6 +100,14 @@ public class Cloud implements Entity {
      */
     public void setWidth(double width){
         this.width = width;
+    }
+
+    /**
+     * Changes the clouds speed.
+     * @param cloudVelocity The new speed the cloud should move.
+     */
+    public void setCloudVelocity(double cloudVelocity){
+        this.cloudVelocity = cloudVelocity;
     }
 
     @Override
