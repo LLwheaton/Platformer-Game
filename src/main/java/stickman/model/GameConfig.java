@@ -10,30 +10,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Configures the game by reading from JSON file, creating entities and level
+ */
 public class GameConfig {
 
     private String stickmanSize;
     private double playerHeight;
     private double playerWidth;
     private double startXPos;
-    private double cloudVelocity;
     private double finishLine;
 
     private List<Entity> entities = new ArrayList<>();
-    private Entity player;
     private Level levelone;
     private double floorHeight = 350;
 
     private EntityFactory factory = new EntityFactory();
 
-
+    /**
+     * Takes the JSON file extracts the information to create entities and level
+     * @param fileName The JSON configuration file
+     */
     public GameConfig(String fileName){
 
         extract(fileName);
     }
     /**
-     * Reads in json file and stores its information
-     * after parsing.
+     * Reads in json file and calls methods to create each entity
      * @param filename The json file to be parsed.
      */
     private void extract(String filename){
@@ -66,15 +69,28 @@ public class GameConfig {
 
     }
 
+    /**
+     * Creates the current level.
+     * @param player The Player being included in the level.
+     */
     private void createLevel(Player player){
         Level levelone = new LevelImpl(600,380, player, this.entities);
         this.levelone = levelone;
     }
 
+    /**
+     * Retries the currently made level
+     * @return The current level
+     */
     public Level getCurrentLevel(){
         return this.levelone;
     }
 
+    /**
+     * Parses the JSON file configuration for Finish Line,
+     * creates it, and sets its values.
+     * @param file The JSON file which has the information.
+     */
     private void createFinishLine(JSONObject file){
 
         this.finishLine = (double)file.get("finishLine");
@@ -86,8 +102,13 @@ public class GameConfig {
         entities.add(finishLine);
     }
 
+    /**
+     * Parses the JSON file configuration for Stickman,
+     * creates it, and sets its values.
+     * @param file The JSON file which has the information.
+     */
     private Entity createStickMan(JSONObject file){
-        //Stickman
+
         JSONObject stickman = (JSONObject)file.get("stickman");
         this.startXPos = (double)stickman.get("x");
         this.stickmanSize = (String)stickman.get("stickmanSize");
@@ -99,7 +120,7 @@ public class GameConfig {
         player.setYPos(floorHeight);
         player.setHeight(this.playerHeight);
         player.setWidth(this.playerWidth);
-        Player player2 = (Player)player; //CASTING UGH
+        Player player2 = (Player)player;
         player2.setVelocity(velocity);
         player2.setNumLives((int)lives);
         player2.setStartXPos(this.startXPos);
@@ -107,8 +128,13 @@ public class GameConfig {
         return player;
     }
 
+    /**
+     * Parses the JSON file configuration for Clouds,
+     * creates it, and sets its values.
+     * @param file The JSON file which has the information.
+     */
     private void createClouds(JSONObject file){
-        //Clouds
+
         JSONObject clouds = (JSONObject)file.get("clouds");
         double numClouds = (double)clouds.get("num");
         JSONArray cloudPositions = (JSONArray)clouds.get("position");
@@ -122,14 +148,19 @@ public class GameConfig {
             cloud.setYPos(y);
             cloud.setHeight(50.0);
             cloud.setWidth(80.0);
-            Cloud cloud1 = (Cloud)cloud; //Shouldn't be doing this :/
+            Cloud cloud1 = (Cloud)cloud;
             cloud1.setCloudVelocity(cloudVelocity);
             entities.add(cloud);
         }
     }
 
+    /**
+     * Parses the JSON file configuration for Platforms,
+     * creates it, and sets its values.
+     * @param file The JSON file which has the information.
+     */
     private void createPlatforms(JSONObject file){
-        //Platforms
+
         JSONObject platforms = (JSONObject)file.get("platforms");
         double numPlatforms = (double)platforms.get("num");
         JSONArray platformPositions = (JSONArray)platforms.get("position");
@@ -146,8 +177,13 @@ public class GameConfig {
         }
     }
 
+    /**
+     * Parses the JSON file configuration for Trees,
+     * creates it, and sets its values.
+     * @param file The JSON file which has the information.
+     */
     private void createTrees(JSONObject file){
-        //Trees
+
         JSONObject trees = (JSONObject)file.get("trees");
         double numTrees = (double)trees.get("num");
         JSONArray treePositions = (JSONArray) trees.get("position");
@@ -164,8 +200,13 @@ public class GameConfig {
         }
     }
 
+    /**
+     * Parses the JSON file configuration for Enemies,
+     * creates it, and sets its values.
+     * @param file The JSON file which has the information.
+     */
     private void createEnemies(JSONObject file){
-        //Enemies
+
         JSONObject enemies = (JSONObject)file.get("enemies");
         double numEnemies = (double)enemies.get("num");
         JSONArray enemyPositions = (JSONArray) enemies.get("position");
@@ -186,8 +227,13 @@ public class GameConfig {
         }
     }
 
+    /**
+     * Parses the JSON file configuration for Coins,
+     * creates it, and sets its values.
+     * @param file The JSON file which has the information.
+     */
     private void createCoins(JSONObject file){
-        //Coins
+
         JSONObject coins = (JSONObject)file.get("coins");
         double numCoins = (double)coins.get("num");
         JSONArray coinPositions = (JSONArray) coins.get("position");
@@ -204,6 +250,10 @@ public class GameConfig {
         }
     }
 
+    /**
+     * Determines correct height and width in pixels for stickman.
+     * @param size The size of stickman as a string.
+     */
     private void determineSize(String size){
         switch (size.toLowerCase()){
             case "tiny":
@@ -226,6 +276,4 @@ public class GameConfig {
                 throw new IllegalArgumentException("Valid size not given");
         }
     }
-
-
 }
