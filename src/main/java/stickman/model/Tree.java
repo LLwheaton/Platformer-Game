@@ -41,20 +41,26 @@ public class Tree implements Entity {
         return this.layer;
     }
 
+    @Override
     public void setXPos(double xpos){
         this.XPos = xpos;
     }
+
+    @Override
     public void setYPos(double ypos){
         this.YPos = ypos;
     }
 
+    @Override
     public void setHeight(double height){
         this.height = height;
     }
 
+    @Override
     public void setWidth(double width){
         this.width = width;
     }
+
 
     @Override
     public void update() {
