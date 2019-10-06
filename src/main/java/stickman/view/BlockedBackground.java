@@ -33,7 +33,7 @@ public class BlockedBackground implements BackgroundDrawer {
      * @param width The width of the sky (Also the width of the window) in pixels.
      * @param floorHeight The height of the floor in pixels.
      */
-    private void createSky(double width, double floorHeight){
+    public void createSky(double width, double floorHeight){
 
         this.sky = new Rectangle(0, 0, width, floorHeight);
         sky.setFill(Paint.valueOf("LIGHTBLUE"));

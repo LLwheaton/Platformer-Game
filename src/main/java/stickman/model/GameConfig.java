@@ -254,7 +254,7 @@ public class GameConfig {
      * Determines correct height and width in pixels for stickman.
      * @param size The size of stickman as a string.
      */
-    private void determineSize(String size){
+    public void determineSize(String size){
         switch (size.toLowerCase()){
             case "tiny":
                 this.playerHeight = 40.0;

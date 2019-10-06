@@ -1,6 +1,9 @@
 import org.junit.Test;
 import stickman.model.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -323,6 +326,31 @@ public class StickmanTests {
     }
 
     //GameConfig testing//////////////////////////////////////////////////
+    @Test
+    public void gameConfigTestTinySize(){
+        GameConfig gc = new GameConfig("src\\main\\resources\\default.json");
+        gc.determineSize("tiny");
+    }
+    @Test
+    public void gameConfigTestLargeSize(){
+        GameConfig gc = new GameConfig("src\\main\\resources\\default.json");
+        gc.determineSize("large");
+    }
+    @Test
+    public void gameConfigTestGiantSize(){
+        GameConfig gc = new GameConfig("src\\main\\resources\\default.json");
+        gc.determineSize("giant");
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void gameConfigTestInvalidSize(){
+        GameConfig gc = new GameConfig("src\\main\\resources\\default.json");
+        gc.determineSize("something");
+    }
+    @Test
+    public void gameConfigWrongFileTest(){
+        GameConfig gc = new GameConfig("none");
+    }
+
 
     //GameEngine testing///////////////////////////////////////////////////
     @Test
@@ -362,6 +390,69 @@ public class StickmanTests {
     }
 
     //Level testing////////////////////////////////////////////////////////
+    @Test
+    public void levelGetEntitiesTest(){
+        Player player = new Player();
+        List<Entity> entities = new ArrayList<>();
+        entities.add(player);
+        LevelImpl level = new LevelImpl(600,380, player, entities);
+        List<Entity> res = new ArrayList<>();
+        res = level.getEntities();
+        assertEquals(entities.get(0).toString(), res.get(0).toString());
+    }
+    @Test
+    public void levelHeightTest(){
+        Player player = new Player();
+        List<Entity> entities = new ArrayList<>();
+        entities.add(player);
+        LevelImpl level = new LevelImpl(600,380, player, entities);
+        double height = level.getHeight();
+        assertEquals(380, height, 0.1);
+    }
+    @Test
+    public void levelWidthTest(){
+        Player player = new Player();
+        List<Entity> entities = new ArrayList<>();
+        entities.add(player);
+        LevelImpl level = new LevelImpl(600,380, player, entities);
+        double width = level.getWidth();
+        assertEquals(600, width, 0.1);
+    }
+    @Test
+    public void levelPlayerXTest(){
+        Player player = new Player();
+        player.setXPos(20);
+        List<Entity> entities = new ArrayList<>();
+        entities.add(player);
+        LevelImpl level = new LevelImpl(600,380, player, entities);
+        double xpos = level.getHeroX();
+        assertEquals(20, xpos, 0.1);
+    }
+    @Test
+    public void levelFloorHeightTest(){
+        Player player = new Player();
+        List<Entity> entities = new ArrayList<>();
+        entities.add(player);
+        LevelImpl level = new LevelImpl(600,380, player, entities);
+        double fh = level.getFloorHeight();
+        assertEquals(350, fh, 0.1);
+    }
+    @Test
+    public void levelIntersectTest(){
+        Player player = new Player();
+        player.setXPos(30);
+        player.setXPos(30);
+        Slime slime = new Slime();
+        slime.setXPos(30);
+        slime.setYPos(30);
+        List<Entity> entities = new ArrayList<>();
+        entities.add(player);
+        entities.add(slime);
+        LevelImpl level = new LevelImpl(600,380, player, entities);
+
+        level.checkIntersect(player, slime);
+    }
+
 
     //Platform testing//////////////////////////////////////////////////////
 
@@ -403,7 +494,7 @@ public class StickmanTests {
     public void platformLayerTest(){
         Platform p = new Platform();
         Entity.Layer layer = p.getLayer();
-        assertEquals(Entity.Layer.FOREGROUND, layer);
+        assertEquals(Entity.Layer.BACKGROUND, layer);
     }
     @Test
     public void PlatformUpdateTest(){
@@ -532,6 +623,7 @@ public class StickmanTests {
         Tree tree = new Tree();
         tree.handleCollision(tree);
     }
+
 
 
 
