@@ -28,6 +28,11 @@ public class BlockedBackground implements BackgroundDrawer {
         // do nothing since this is a static bg
     }
 
+    /**
+     * Creates the sky for the Game
+     * @param width The width of the sky (Also the width of the window) in pixels.
+     * @param floorHeight The height of the floor in pixels.
+     */
     private void createSky(double width, double floorHeight){
 
         this.sky = new Rectangle(0, 0, width, floorHeight);
@@ -36,6 +41,12 @@ public class BlockedBackground implements BackgroundDrawer {
         pane.getChildren().add(sky);
     }
 
+    /**
+     * Creates the floor for the Game window
+     * @param height The height of the pane in pixels.
+     * @param width The width of the pane in pixels.
+     * @param floorHeight The height of the floor in pixels.
+     */
     private void createFloor(double height, double width, double floorHeight){
 
         this.floor = new Rectangle(0, floorHeight, width, height - floorHeight);
