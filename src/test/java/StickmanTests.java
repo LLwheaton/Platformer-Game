@@ -125,7 +125,12 @@ public class StickmanTests {
     @Test
     public void playerCollisionTest(){
         Player player = new Player();
-        //***************************************************
+        Slime slime = new Slime();
+        player.setXPos(30);
+        player.setYPos(30);
+        slime.setYPos(30);
+        slime.setXPos(30);
+        player.handleCollision(slime);
     }
     @Test
     public void playerVelocityTest(){
@@ -134,11 +139,7 @@ public class StickmanTests {
         double velocity = player.getVelocity();
         assertEquals(3, velocity, 0.1);
     }
-    @Test
-    public void playerUpdateTest(){
-        Player player = new Player();
-        //**************************************************************
-    }
+
     @Test
     public void playerStartXPosTest(){
         Player player = new Player();
@@ -194,6 +195,31 @@ public class StickmanTests {
         int res = player.getNumLives();
         assertEquals(3, res);
     }
+    @Test
+    public void playerSetWinTest(){
+        Player player = new Player();
+        player.setWin(true);
+        boolean res = player.win();
+        assertTrue(res);
+    }
+    @Test
+    public void playerCheckLoseTest(){
+        Player player = new Player();
+        player.setNumLives(1);
+        player.death();
+        boolean res = player.checkLose();
+        assertTrue(res);
+    }
+    @Test
+    public void playerCheckLoseTest2(){
+        Player player = new Player();
+        player.setNumLives(3);
+        player.death();
+        player.death();
+        boolean res = player.checkLose();
+        assertTrue(!res);
+    }
+
 
     //Coin testing///////////////////////////////////////////////////////////
     @Test
@@ -474,6 +500,87 @@ public class StickmanTests {
         LevelImpl level = new LevelImpl(600,380, player, entities);
 
         level.checkIntersect(player, slime);
+    }
+    @Test
+    public void levelWinScreenTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        GameWindow gw = new GameWindow(ge, 600,400);
+        Player player = new Player();
+        List<Entity> list = new ArrayList<>();
+        list.add(player);
+        LevelImpl level = new LevelImpl(600,380, player, list);
+        level.winScreen();
+    }
+    @Test
+    public void levelLoseScreenTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        GameWindow gw = new GameWindow(ge, 600,400);
+        Player player = new Player();
+        List<Entity> list = new ArrayList<>();
+        list.add(player);
+        LevelImpl level = new LevelImpl(600,380, player, list);
+        level.loseScreen();
+    }
+    @Test
+    public void levelIntersectTest2(){
+        Player player = new Player();
+        player.setXPos(30);
+        player.setXPos(30);
+        player.setHeight(10);
+        player.setWidth(10);
+        Slime slime = new Slime();
+        slime.setXPos(30);
+        slime.setYPos(30);
+        slime.setHeight(10);
+        slime.setWidth(10);
+        List<Entity> entities = new ArrayList<>();
+        entities.add(player);
+        entities.add(slime);
+        LevelImpl level = new LevelImpl(600,380, player, entities);
+
+        level.checkIntersect(player, slime);
+    }
+    @Test
+    public void levelTickTest(){
+        Player player = new Player();
+        player.setWidth(10);
+        player.setHeight(10);
+        player.setXPos(10);
+        player.setYPos(10);
+
+        Slime slime = new Slime();
+        slime.setWidth(10);
+        slime.setHeight(10);
+        slime.setXPos(10);
+        slime.setYPos(10);
+
+        Platform p = new Platform();
+        p.setHeight(10);
+        p.setWidth(10);
+        p.setXPos(10);
+        p.setYPos(10);
+
+        FinishLine f = new FinishLine();
+        f.setHeight(10);
+        f.setWidth(10);
+        f.setXPos(10);
+        f.setYPos(10);
+
+        Coin coin = new Coin();
+        coin.setHeight(10);
+        coin.setWidth(10);
+        coin.setXPos(10);
+        coin.setYPos(10);
+
+        List<Entity> list = new ArrayList<>();
+        list.add(player);
+        list.add(slime);
+        list.add(p);
+        list.add(f);
+        list.add(coin);
+
+        LevelImpl level = new LevelImpl(600,400, player, list);
+        level.tick();
     }
 
 
