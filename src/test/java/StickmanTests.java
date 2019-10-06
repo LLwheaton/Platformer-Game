@@ -1,12 +1,27 @@
+import de.saxsys.javafx.test.JfxRunner;
+import de.saxsys.javafx.test.TestInJfxThread;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import stickman.App;
 import stickman.model.*;
+import stickman.view.BlockedBackground;
+import stickman.view.GameWindow;
+import stickman.view.KeyboardInputHandler;
+import stickman.view.ParallaxBackground;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(JfxRunner.class)
 public class StickmanTests {
 
     //Cloud testing////////////////////////////////////////////////////////
@@ -170,6 +185,14 @@ public class StickmanTests {
         Player player = new Player();
         boolean res = player.stopMoving();
         assertTrue(!res);
+    }
+
+    @Test
+    public void playerGetLivesTest(){
+        Player player = new Player();
+        player.setNumLives(3);
+        int res = player.getNumLives();
+        assertEquals(3, res);
     }
 
     //Coin testing///////////////////////////////////////////////////////////
@@ -623,6 +646,101 @@ public class StickmanTests {
         Tree tree = new Tree();
         tree.handleCollision(tree);
     }
+
+    //GameWindow/////////////////////////////////////////////////////////////
+    @Test
+    public void gameWindowSceneTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        GameWindow gw = new GameWindow(ge, 600, 400);
+        Scene scene = gw.getScene();
+
+    }
+    @Test
+    public void gameWindowPaneTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        GameWindow gw = new GameWindow(ge, 600, 400);
+        Pane palen = gw.getPane();
+
+    }
+    @Test
+    public void gameWindowRunTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        GameWindow gw = new GameWindow(ge, 600, 400);
+        gw.run();
+    }
+
+    //ParallaxBackground//////////////////////////////////////////////////////////////////////////
+    @Test
+    public void pbDrawTest(){
+        ParallaxBackground pb = new ParallaxBackground();
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        Pane pane = new Pane();
+        pb.draw(ge, pane);
+    }
+    //BlockedBackground/////////////////////////////////////////////////////////////////////
+    @Test
+    public void bbDrawTest(){
+        BlockedBackground bb = new BlockedBackground();
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        Pane pane = new Pane();
+        bb.draw(ge, pane);
+    }
+
+    //KeyboardHandler//////////////////////////////////////////////////////////////
+    @Test
+    public void keyboardTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        KeyboardInputHandler kb = new KeyboardInputHandler(ge);
+    }
+    @Test
+    public void keyboardPressLeftTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        KeyboardInputHandler kb = new KeyboardInputHandler(ge);
+        KeyEvent left = new KeyEvent( KeyEvent.KEY_PRESSED, KeyCode.LEFT.toString(), KeyCode.LEFT.toString(), KeyCode.LEFT, false,
+                false, false, false);
+        kb.handlePressed(left);
+    }
+    @Test
+    public void keyboardPressRightTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        KeyboardInputHandler kb = new KeyboardInputHandler(ge);
+        KeyEvent right = new KeyEvent( KeyEvent.KEY_PRESSED, KeyCode.RIGHT.toString(), KeyCode.RIGHT.toString(), KeyCode.RIGHT, false,
+                false, false, false);
+        kb.handlePressed(right);
+    }
+    @Test
+    public void keyboardPressUpTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        KeyboardInputHandler kb = new KeyboardInputHandler(ge);
+        KeyEvent up = new KeyEvent( KeyEvent.KEY_PRESSED, KeyCode.UP.toString(), KeyCode.UP.toString(), KeyCode.UP, false,
+                false, false, false);
+        kb.handlePressed(up);
+    }
+    @Test
+    public void keyboardReleaseUpTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        KeyboardInputHandler kb = new KeyboardInputHandler(ge);
+        KeyEvent up = new KeyEvent( KeyEvent.KEY_RELEASED, KeyCode.UP.toString(), KeyCode.UP.toString(), KeyCode.UP, false,
+                false, false, false);
+        kb.handleReleased(up);
+    }
+    @Test
+    public void keyboardReleaseLeftTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        KeyboardInputHandler kb = new KeyboardInputHandler(ge);
+        KeyEvent left = new KeyEvent( KeyEvent.KEY_RELEASED, KeyCode.LEFT.toString(), KeyCode.LEFT.toString(), KeyCode.LEFT, false,
+                false, false, false);
+        kb.handleReleased(left);
+    }
+    @Test
+    public void keyboardReleaseRightTest(){
+        GameEngine ge = new GameEngineImpl("src\\main\\resources\\default.json");
+        KeyboardInputHandler kb = new KeyboardInputHandler(ge);
+        KeyEvent right = new KeyEvent( KeyEvent.KEY_RELEASED, KeyCode.RIGHT.toString(), KeyCode.RIGHT.toString(), KeyCode.RIGHT, false,
+                false, false, false);
+        kb.handleReleased(right);
+    }
+
 
 
 

@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-class KeyboardInputHandler{
+public class KeyboardInputHandler{
     private final GameEngine model;
     private boolean left = false;
     private boolean right = false;
@@ -25,7 +25,7 @@ class KeyboardInputHandler{
 
     private Map<String, MediaPlayer> sounds = new HashMap<>();
 
-    KeyboardInputHandler(GameEngine model) {
+    public KeyboardInputHandler(GameEngine model) {
         this.model = model;
 
         URL mediaUrl = getClass().getResource("/jump.wav");
@@ -36,7 +36,7 @@ class KeyboardInputHandler{
         sounds.put("jump", mediaPlayer);
     }
 
-    void handlePressed(KeyEvent keyEvent) {
+    public void handlePressed(KeyEvent keyEvent) {
         if (pressedKeys.contains(keyEvent.getCode())) {
             return;
         }
@@ -70,7 +70,7 @@ class KeyboardInputHandler{
         }
     }
 
-    void handleReleased(KeyEvent keyEvent) {
+    public void handleReleased(KeyEvent keyEvent) {
         pressedKeys.remove(keyEvent.getCode());
 
         if (keyEvent.getCode().equals(KeyCode.LEFT)) {
