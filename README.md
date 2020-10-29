@@ -25,5 +25,5 @@ Junit tests run using a JUnit configuration in IntelliJ. <br>
 Alternatively, navigate to root folder and use "gradle test".<br>
 
 #### Game Assets sources:
-https://startledpixels.itch.io/2d-pixel-item-asset-pack
+https://startledpixels.itch.io/2d-pixel-item-asset-pack <br>
 https://ansimuz.itch.io/magic-cliffs-environment
