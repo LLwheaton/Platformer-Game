@@ -1,4 +1,4 @@
-STICKMAN
+### Stickman
 
 Java style guide used for project: https://google.github.io/styleguide/javaguide.html
 
@@ -12,15 +12,15 @@ The current configuration file can change:
 - The quantity, position, and velocity of Clouds and Slimes.
 - The quantity and position of Platforms, Trees and Coins.
 
-JSON file: src/main/resources/default.json
+<strong>JSON file:</strong> src/main/resources/default.json
 
-How to run:
+#### How to run:
 Project can be opened in Intellij and run there. Alternatively, navigate to the root folder and use "gradle run".
 
-Testing:
-Junit tests run using a JUnit configuration in IntelliJ.
-Alternatively, navigate to root folder and use "gradle test".
+#### Testing:
+Junit tests run using a JUnit configuration in IntelliJ. <br>
+Alternatively, navigate to root folder and use "gradle test".<br>
 
-Game Assets sources:
+#### Game Assets sources:
 https://startledpixels.itch.io/2d-pixel-item-asset-pack
 https://ansimuz.itch.io/magic-cliffs-environment
