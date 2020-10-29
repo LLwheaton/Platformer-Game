@@ -1,5 +1,8 @@
 ### Stickman
 
+![alt text](https://github.com/LLwheaton/StickmanStage2/blob/master/stickmansample.PNG "Stickman Level")
+
+
 Java style guide used for project: https://google.github.io/styleguide/javaguide.html
 
 Stickman is a 2D platformer game where players control Stickman to progress through multiple levels by avoiding or killing enemy slimes, picking up coins, 
