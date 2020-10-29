@@ -2,7 +2,8 @@ STICKMAN
 
 Java style guide used for project: https://google.github.io/styleguide/javaguide.html
 
-Stickman is a 2D platformer game where players control Stickman to progress through multiple levels by avoiding or killing enemy slimes, picking up coins, and reaching the chest at the end of each level! Stickman can 
+Stickman is a 2D platformer game where players control Stickman to progress through multiple levels by avoiding or killing enemy slimes, picking up coins, 
+and reaching the chest at the end of each level!
 
 A configuration file 'default.json' is given in the resources directory for the user to configure the quantities and positions of entities within a level.
 The current configuration file can change:
