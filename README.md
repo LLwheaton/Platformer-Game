@@ -1,4 +1,4 @@
-### Stickman
+# Stickman
 
 ![alt text](https://github.com/LLwheaton/StickmanStage2/blob/master/stickmansample.PNG "Stickman Level")
 
@@ -10,19 +10,20 @@ and reaching the chest at the end of each level!
 
 A configuration file 'default.json' is given in the resources directory for the user to configure the quantities and positions of entities within a level.
 The current configuration file can change:
-- The location of the FinishLine.
+- The location of the finish line (FinishLine).
 - The size, location and velocity of Stickman. Sizes can be 'tiny', 'normal', 'large', 'giant'.
 - The quantity, position, and velocity of Clouds and Slimes.
 - The quantity and position of Platforms, Trees and Coins.
 
 <strong>JSON file:</strong> src/main/resources/default.json
 
-#### How to run:
-Project can be opened in Intellij and run there. Alternatively, navigate to the root folder and use "gradle run".
+## How to run:
+- Clone project
+- Install gradle locally https://gradle.org/install/
+- Navigate to root folder and use "gradle run"
 
-#### Testing:
-Junit tests run using a JUnit configuration in IntelliJ. <br>
-Alternatively, navigate to root folder and use "gradle test".<br>
+## Testing:
+- In root folder use "gradle test"
 
 #### Game Assets sources:
 https://startledpixels.itch.io/2d-pixel-item-asset-pack <br>
